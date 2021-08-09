@@ -57,7 +57,7 @@ function draw() {
   background(10);
   // Display the faces
   population.display();
-  //population.displayFittest();
+  population.displayFittest();
   population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
@@ -71,12 +71,12 @@ function draw() {
   
     
   //draw rectangles to display counter
-//  noStroke();
-//  fill(255);
-//  rect(width/3.5, height/1.4, 360*1.5, 40);
-//    
-//  fill(255, 0, 255);
-//  rect(width/3.5, height/1.4, counter*1.5, 40);
+  noStroke();
+  fill(255);
+  rect(width/3.5, height/1.4, 360*1.5, 40);
+    
+  fill(255, 0, 255);
+  rect(width/3.5, height/1.4, counter*1.5, 40);
     
   time = frameCount*0.015;
     
