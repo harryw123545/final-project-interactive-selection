@@ -58,7 +58,7 @@ function draw() {
   //population.display();
   population.displayFittest();
 
-  population.rollover(mouseX, mouseY);
+//  population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
   textSize(60);

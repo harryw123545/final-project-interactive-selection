@@ -62,20 +62,20 @@ function draw() {
   textAlign(CENTER);
   textSize(60);
     
-  console.log(num);
-    
-  let word = char(num); // select random word
-  text("Generation: " + word, width/2, height/1.13);
+//  console.log(num);
+//    
+//  let word = char(num); // select random word
+//  text("Generation: " + word, width/2, height/1.13);
   counter = frameCount % 360;
   
-
-  noStroke();
-  
-  fill(255);
-  rect(width/3.5, height/1.4, 360*1.5, 40);
     
-  fill(255, 0, 255);
-  rect(width/3.5, height/1.4, counter*1.5, 40);
+  //draw rectangles to display counter
+//  noStroke();
+//  fill(255);
+//  rect(width/3.5, height/1.4, 360*1.5, 40);
+//    
+//  fill(255, 0, 255);
+//  rect(width/3.5, height/1.4, counter*1.5, 40);
     
   time = frameCount*0.015;
     

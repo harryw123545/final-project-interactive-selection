@@ -30,7 +30,7 @@ class Fittest {
     let iter1 = map(genes[1], 0, 1, 0.01, 0.1);
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
     let iter3 = map(genes[3], 0, 1, 0.01, 0.13);
-    let size = 1;
+    let size = 1.2;
 
 
     var n1 = map(genes[1], 0, 1, 0.3, 1);
@@ -40,10 +40,10 @@ class Fittest {
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
-    let add = map(genes[6], 0, 1, 0.0001, 0.001);
+    let add = map(genes[6], 0, 1, 0.0005, 0.004);
 
     //define noise
-    let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
+    let noiseIter = map(genes[7], 0, 1, 0.05, 0.4);
     osc += add;
 
 
@@ -79,7 +79,7 @@ class Fittest {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 80;
+      var total = 100;
       var increment = TWO_PI / total;
         
       beginShape();
@@ -97,8 +97,8 @@ class Fittest {
       endShape(CLOSE);
 
       //recursively draw shapes
-      if(radius > 0.3) {
-          drawShapes(radius/1.06);
+      if(radius > 0.2) {
+          drawShapes(radius/1.025);
       }
         
         pop();
