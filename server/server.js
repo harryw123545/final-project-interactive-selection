@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const socket = require('socket.io');
+var socket = require('socket.io');
 
 
 let server = app.listen(port);
@@ -9,4 +9,17 @@ let server = app.listen(port);
 console.log(`The server is now running at http://localhost/${port}`);
 app.use(express.static("public"));
 
-let io = socket(server);
+var io = socket(server);
+
+io.sockets.on('connection', newConnection)
+
+function newConnection(socket){
+    console.log(socket)
+}
+
+
+//let counter = frameCount % 360;
+//
+//if(counter == 0){
+//      console.log("counter reset");
+//  }
