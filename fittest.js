@@ -120,7 +120,7 @@ class Fittest {
     //draw scan line
     push();
     strokeWeight(2);  
-    stroke(55, 255, 55);
+    stroke(255, 0, 255);
     line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
     
       
