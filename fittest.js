@@ -7,14 +7,15 @@ class Fittest {
     this.dna = dna_; // Face's DNA
     this.x = x_; // Position on screen
     this.y = y_;
-    //this.wh = width/6.5; // Size of square enclosing face
+    this.wh = width/4; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
-    //this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
+    this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.osc = 0;
-
+        
+    y = y_;
   }
 
     
@@ -45,7 +46,6 @@ class Fittest {
     //define noise
     let noiseIter = map(genes[7], 0, 1, 0.05, 0.4);
     osc += add;
-
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
     push();
@@ -112,7 +112,24 @@ class Fittest {
     rect(0, 0, this.wh, this.wh);
     pop();
 
+    //apply noise to y value of line
+    y = y + 0.01;
+    let n = noise(y) * this.wh+this.y/2;
       
+
+    //draw scan line
+    push();
+    strokeWeight(2);  
+    stroke(255, 0, 255);
+    line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
+    
+      
+    //draw alien description
+    fill(255);
+    textSize(40);  
+    noStroke();
+    text(this.word, width / 2, height/1.25); // draw the word
+    pop();
     
   }
 
