@@ -26,7 +26,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(window.innerWidth, window.innerHeight);
+  canvas = createCanvas(displayWidth, displayHeight);
   canvas.parent('canvas-container');
  
   let popmax = 6;

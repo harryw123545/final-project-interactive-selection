@@ -39,7 +39,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(window.innerWidth, window.innerHeight);
+  canvas = createCanvas(displayWidth, displayHeight);
   canvas.parent('canvas-container');
  
   let popmax = 6;
@@ -57,7 +57,7 @@ function draw() {
   background(10);
   // Display the faces
   population.display();
-  population.displayFittest();
+  //population.displayFittest();
   population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
