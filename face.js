@@ -16,10 +16,12 @@ class Face {
     this.dna = dna_; // Face's DNA
     this.x = x_; // Position on screen
     this.y = y_;
-    this.wh = width/6; // Size of square enclosing face
+      
+    this.space = 8;
+    this.wh = width/8; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
-    this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
+    this.r = new Rectangle(this.x, this.y, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.osc = 0;
@@ -116,7 +118,7 @@ class Face {
 
     // Draw the bounding box
     stroke(255, 100);
-    if (this.rolloverOn) fill(100, 20);
+    if (this.rolloverOn) fill(250, 200);
     else noFill();
     rectMode(CENTER);
     rect(0, 0, this.wh, this.wh);

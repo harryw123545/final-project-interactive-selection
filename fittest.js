@@ -26,7 +26,7 @@ class Fittest {
     // Now, since every gene is a floating point between 0 and 1, we map the values
     let genes = this.dna.genes;
     let r = map(genes[2], 0, 1, 80, 100);
-    let c = color(genes[1], genes[2], genes[3]);
+    //let c = color(genes[1], genes[2], genes[3]);
     
     let iter1 = map(genes[1], 0, 1, 0.01, 0.1);
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
