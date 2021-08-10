@@ -16,7 +16,7 @@ class Face {
     this.dna = dna_; // Face's DNA
     this.x = x_; // Position on screen
     this.y = y_;
-    this.wh = width/6.5; // Size of square enclosing face
+    this.wh = width/6; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
@@ -96,7 +96,7 @@ class Face {
             fill(127 + 127 * sin(total * iter1*radius + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
             var rad = superShape(angle);
             
-            let offset = map(noise(angle * 0.1 + frameCount * 0.01), -1, 1, 0, 1);
+            let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
 
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);

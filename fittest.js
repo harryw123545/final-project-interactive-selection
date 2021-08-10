@@ -11,11 +11,11 @@ class Fittest {
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
-    this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
+    this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
-    this.osc = 0;
+    osc = 0;
         
-    y = y_;
+    //y = y_;
   }
 
     
@@ -79,7 +79,7 @@ class Fittest {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 100;
+      var total = 80;
       var increment = TWO_PI / total;
         
       beginShape();
@@ -87,7 +87,7 @@ class Fittest {
             fill(127 + 127 * sin(total * iter1 + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
             var rad = superShape(angle);
             
-            let offset = map(noise(angle * 0.1 + frameCount * 0.01), -1, 1, 0, 1);
+            let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
 
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
@@ -113,7 +113,7 @@ class Fittest {
     pop();
 
     //apply noise to y value of line
-    y = y + 0.01;
+    y = y + 0.02;
     let n = noise(y) * this.wh+this.y/2;
       
 

@@ -19,10 +19,13 @@ class Population {
       
     //define spacing  
     spc = width * 1. / num;
+
+  for(let i = 0; i < num; i++){ 
+    this.population[i] = new Face(new DNA(), spc/2 + i * spc, height/3);
+
+  }
       
-    for (let i = 0; i < num; i++) {
-        this.population[i] = new Face(new DNA(), spc/2 + i * spc, height/4);
-    }
+    
 
   }
 
@@ -86,7 +89,11 @@ class Population {
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
-      this.population[i] = new Face(child, spc/2 + i * spc, height/4);
+        
+        
+      this.population[i] = new Face(child, spc/2 + i * spc, height/3);
+        
+      //call fittest class    
       this.fittest = new Fittest(fit, width/2, height/2);
     }
     this.generations++;

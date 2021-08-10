@@ -5,18 +5,20 @@
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 
-let population;
-let info;
-var osc = 0;
+//let population;
+//let info;
+var osc;
 let time;
 var counter = 0;
 let spc;
-let font;
+//let font;
 let words = [];
 var canvas;
 let num = 65;
 var img; 
 let y;
+
+
 
 
 function preload() {
@@ -69,11 +71,6 @@ function draw() {
   fill(255, 0, 255);
   rect(width/3.5, height/1.08, counter*1.5, 20, 20, 20);
     
-    
-  //draw rectangle
-//  stroke(255);
-//  fill(255, 0, 0);
-//  rect(70, height/1.3, 160, 30, 30, 40);
     
   time = frameCount*0.015;
     
