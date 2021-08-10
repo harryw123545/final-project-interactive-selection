@@ -21,14 +21,14 @@ class Population {
     this.th = height / 3;
     this.x1;
     this.y1;
-      
-      
-    for (let i = 0; i < num; i++) {
-        this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
+
+ for (let k = 0; k < num; k++) {
+        this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
         this.y1 = this.th / 2 + (k % 2) * this.th;
         this.population[i] = new Face(new DNA(), this.x1, this.y1);
         
       }
+      
     
 
   }
@@ -38,7 +38,7 @@ class Population {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].display();
     }
-
+      
   }
     
   displayFittest() {
@@ -95,8 +95,9 @@ class Population {
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
         
-        this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
-        this.y1 = this.th / 2 + (i % 2) * this.th;
+        
+      this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
+      this.y1 = this.th / 2 + (i % 2) * this.th;
         
       this.population[i] = new Face(child, this.x1, this.y1);
         
