@@ -22,13 +22,15 @@ class Population {
     this.x1;
     this.y1;
 
- for (let k = 0; k < num; k++) {
+     for (let k = 0; k < num; k++) {
         this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
         this.y1 = this.th / 2 + (k % 2) * this.th;
-        this.population[i] = new Face(new DNA(), this.x1, this.y1);
-        
-      }
+        this.population[k] = new Face(new DNA(), this.x1, this.y1);
+
+    }
       
+    this.fittest = new Fittest(new DNA(), width/2, height/2);
+    
     
 
   }
@@ -94,12 +96,12 @@ class Population {
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
-        
+
         
       this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
       this.y1 = this.th / 2 + (i % 2) * this.th;
         
-      this.population[i] = new Face(child, this.x1, this.y1);
+      this.population[i] = new Face(new DNA(), this.x1, this.y1);
         
       //call fittest class    
       this.fittest = new Fittest(fit, width/2, height/2);

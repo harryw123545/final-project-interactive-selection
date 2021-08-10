@@ -18,7 +18,8 @@ class Face {
     this.y = y_;
       
     this.space = 8;
-    this.wh = width/6; // Size of square enclosing face
+
+    this.wh = width/8; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
@@ -118,7 +119,7 @@ class Face {
 
     // Draw the bounding box
     stroke(255, 100);
-    if (this.rolloverOn) fill(250, 200);
+    if (this.rolloverOn) fill(100, 20);
     else noFill();
     rectMode(CENTER);
     rect(0, 0, this.wh, this.wh);
