@@ -13,9 +13,10 @@ class Fittest {
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
+    this.n;
     osc = 0;
         
-    //y = y_;
+    y = y_;
   }
 
     
@@ -113,7 +114,7 @@ class Fittest {
     pop();
 
     //apply noise to y value of line
-    y = y + 0.02;
+    y = y + 0.015;
     let n = noise(y) * this.wh+this.y/2;
       
 
@@ -122,6 +123,7 @@ class Fittest {
     strokeWeight(2);  
     stroke(255, 0, 255);
     line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
+    console.log("n:", n);
     
       
     //draw alien description

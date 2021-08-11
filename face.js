@@ -19,7 +19,7 @@ class Face {
       
     this.space = 8;
 
-    this.wh = width/8; // Size of square enclosing face
+    this.wh = width/5; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);

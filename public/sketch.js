@@ -85,12 +85,12 @@ function draw() {
   
     
   //draw rectangles to display counter
-  noStroke();
-  fill(255);
-  rect(width/3.5, height/1.4, 360*1.5, 40);
-    
-  fill(255, 0, 255);
-  rect(width/3.5, height/1.4, counter*1.5, 40);
+//  noStroke();
+//  fill(255);
+//  rect(width/3.5, height/1.4, 360*1.5, 40);
+//    
+//  fill(255, 0, 255);
+//  rect(width/3.5, height/1.4, counter*1.5, 40);
     
   time = frameCount*0.015;
     
