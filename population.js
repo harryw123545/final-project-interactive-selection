@@ -10,29 +10,38 @@
 
 // Create the population
 class Population {
-  constructor(m, num) {
+  constructor(m, num, PW, PH) {
     this.mutationRate = m; // Mutation rate
     this.population = []; // array to hold the current population
     this.matingPool = [];
     this.generations = 0; // Number of generations
     this.fittest = new Fittest(new DNA(), width/2, height/2);  
+      
+    //define value for spacing
     this.spc = width/num; 
-    this.tw = width / 3;
+      
+    //variables that change depending on screen size
+    this.ph = PW;
+    this.pw = PH;
+    
+    //console.log("ph: ", this.ph, "pw: ", this.pw);
+      
+    this.tw = width / this.pw;
     this.th = height / 3;
     this.x1;
     this.y1;
+    
+    
 
      for (let k = 0; k < num; k++) {
-        this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
-        this.y1 = this.th / 2 + (k % 2) * this.th;
+        this.x1 = this.tw / 2 + parseInt(k / this.ph) * this.tw;
+        this.y1 = this.th / 2 + (k % this.ph) * this.th;
         this.population[k] = new Face(new DNA(), this.x1, this.y1);
 
     }
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
-    
-    
-
+  
   }
 
   // Display all faces
@@ -40,6 +49,7 @@ class Population {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].display();
     }
+      
       
   }
     
@@ -98,9 +108,8 @@ class Population {
       // Fill the new population with the new child
 
         
-      this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
-      this.y1 = this.th / 2 + (i % 2) * this.th;
-        
+      this.x1 = this.tw / 2 + parseInt(i / this.ph) * this.tw;
+      this.y1 = this.th / 2 + (i % this.ph) * this.th;
       this.population[i] = new Face(new DNA(), this.x1, this.y1);
         
       //call fittest class    
@@ -123,16 +132,16 @@ class Population {
       if (this.population[i].getFitness() > record) {
         record = this.population[i].getFitness();
           
-          var data = {
-              name: "Fittest creature",
-              fitness: record,
-              generation: this.generations
-          }
-
-          if(record > 1){
-             ref.push(data);
-             console.log(data); 
-          }
+//          var data = {
+//              name: "Fittest creature",
+//              fitness: record,
+//              generation: this.generations
+//          }
+//
+//          if(record > 1){
+//             ref.push(data);
+//             console.log(data); 
+//          }
         
         }
     }

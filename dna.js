@@ -10,7 +10,7 @@ class DNA {
   constructor(newgenes) {
     // DNA is random floating point values between 0 and 1 (!!)
     // The genetic sequence
-    let len = 20; // Arbitrary length
+    let len = 30; // Arbitrary length
     if (newgenes) {
       this.genes = newgenes;
     } else {

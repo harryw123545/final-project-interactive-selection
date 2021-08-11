@@ -16,7 +16,9 @@ let words = [];
 var canvas;
 let num = 65;
 let y;
-
+let iter = 2;
+let pw = 2;
+let ph = 3;
 
 
 // Your web app's Firebase configuration
@@ -43,11 +45,19 @@ function preload() {
 function setup() {
   canvas = createCanvas(displayWidth, displayHeight);
   canvas.parent('canvas-container');
- 
+    
+    //change variables if screen is resized
+
+    if(width < height){
+        pw = 3;
+        ph = 2;
+        //console.log("pw: ", pw, "ph: ", ph);
+    }
+    
   let popmax = 6;
   let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
-  population = new Population(mutationRate, popmax);
+  population = new Population(mutationRate, popmax, pw, ph);
 
   textFont(font);
     
@@ -65,10 +75,12 @@ function draw() {
   textAlign(CENTER);
   textSize(60);
     
+    
 //  console.log(num);
 //    
 //  let word = char(num); // select random word
 //  text("Generation: " + word, width/2, height/1.13);
+    
   counter = frameCount % 360;
   
     
