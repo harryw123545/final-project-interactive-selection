@@ -1,22 +1,32 @@
-//class for the fittest creature, for display on projector
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+// Interactive Selection
+// http://www.genarts.com/karl/papers/siggraph91.html
+
+// The class for our "face", contains DNA sequence, fitness value, position on screen
+
+// Fitness Function f(t) = t (where t is "time" mouse rolls over face)
 
 // Create a new face
-class Fittest {
-    constructor(dna_, x_, y_) {
+class Face {
+  constructor(dna_, x_, y_) {
     this.rolloverOn = false; // Are we rolling over this face?
     this.dna = dna_; // Face's DNA
     this.x = x_; // Position on screen
     this.y = y_;
-    this.wh = width/4; // Size of square enclosing face
+      
+    this.space = 8;
+
+    this.wh = width/8; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
-    this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
+    this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
-    this.n;
-    osc = 0;
-        
-    y = y_;
+    this.osc = 0;
+
   }
 
     
@@ -32,7 +42,7 @@ class Fittest {
     let iter1 = map(genes[1], 0, 1, 0.01, 0.1);
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
     let iter3 = map(genes[3], 0, 1, 0.01, 0.13);
-    let size = 1.2;
+    let size = 1;
 
 
     var n1 = map(genes[1], 0, 1, 0.3, 1);
@@ -42,11 +52,12 @@ class Fittest {
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
-    let add = map(genes[6], 0, 1, 0.0005, 0.004);
+    let add = map(genes[6], 0, 1, 0.0001, 0.001);
 
     //define noise
-    let noiseIter = map(genes[7], 0, 1, 0.05, 0.4);
+    let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
     osc += add;
+
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
     push();
@@ -82,10 +93,10 @@ class Fittest {
       //level of detail in shapes    
       var total = 80;
       var increment = TWO_PI / total;
-        
+
       beginShape();
-        for(var angle = 0; angle < TWO_PI; angle += increment){
-            fill(127 + 127 * sin(total * iter1 + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
+        for(var angle = 0; angle <= TWO_PI; angle += increment){
+            fill(127 + 127 * sin(total * iter1*radius + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
@@ -95,15 +106,16 @@ class Fittest {
 
             curveVertex(x, y);
         }
-      endShape(CLOSE);
+      endShape();
 
       //recursively draw shapes
-      if(radius > 0.2) {
-          drawShapes(radius/1.025);
+      if(radius > 0.3) {
+          drawShapes(radius/1.8);
       }
         
         pop();
     }
+
 
     // Draw the bounding box
     stroke(255, 100);
@@ -113,25 +125,24 @@ class Fittest {
     rect(0, 0, this.wh, this.wh);
     pop();
 
-    //apply noise to y value of line
-    y = y + 0.015;
-    let n = noise(y) * this.wh+this.y/2;
+    // Display fitness value
       
+    //draw rectangle underneath  
+    fill(255);  
+    rect(this.x-this.wh/2, this.y+this.wh/2, this.wh, 20);
+      
+    textSize(30);  
+    //text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
+    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
 
-    //draw scan line
-    push();
-    strokeWeight(2);  
-    stroke(255, 0, 255);
-    line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
-    console.log("n:", n);
     
+    //change colour when move rolls over
+    if (this.rolloverOn) fill(255, 0, 0);
+    else fill(155);
       
-    //draw alien description
-    fill(255);
-    textSize(40);  
-    noStroke();
-    text(this.word, width / 2, height/1.25); // draw the word
-    pop();
+    //display fitness score as a rectangle
+    rect(this.x-this.wh/2,this.y+this.wh/2, this.fitness, 20);
+      
     
   }
 
@@ -143,6 +154,15 @@ class Fittest {
     return this.dna;
   }
 
+  // Increment fitness if mouse is rolling over face
+  rollover(mx, my) {
+    if (this.r.contains(mx, my)) {
+      this.rolloverOn = true;
+      this.fitness += 0.4;
+    } else {
+      this.rolloverOn = false;
+    }
+  }
 }
 
 

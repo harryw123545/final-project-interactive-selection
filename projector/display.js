@@ -44,7 +44,7 @@ function setup() {
 function draw() {
   background(10);
   // Display the faces
-  //population.display();
+  population.display();
   population.displayFittest();
 
   imageMode(CORNER);

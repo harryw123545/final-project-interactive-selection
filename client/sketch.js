@@ -21,23 +21,6 @@ let pw = 2;
 let ph = 3;
 
 
-// Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyCkznCvF3h6e-UxE7OH5u3j6J6OXbBBKGE",
-    authDomain: "database-tutorial-codingtrain.firebaseapp.com",
-    projectId: "database-tutorial-codingtrain",
-    storageBucket: "database-tutorial-codingtrain.appspot.com",
-    messagingSenderId: "99303950136",
-    appId: "1:99303950136:web:a26fc977d613b6ed57a3cd",
-    measurementId: "G-B1G0X6BQSG"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-    
-  var database = firebase.database();
-  var ref = database.ref('fitness');
-
 function preload() {
   font = loadFont('Codex-Regular.otf')
 }
@@ -69,7 +52,7 @@ function draw() {
   background(10);
   // Display the faces
   population.display();
-  //population.displayFittest();
+  population.displayFittest();
   population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
