@@ -19,11 +19,17 @@ let y;
 
 let counter = 0;
 
-//variable for data taken from server
-var fit;
-
 const socket = io.connect('http://localhost');
-
+//
+//
+////variable for data taken from server
+//let fit;
+////get dna array from server
+//socket.on('fittest', fittestCreature);
+//
+//function fittestCreature(data){
+//        fit = data;
+//    }
 
 function preload() {
   font = loadFont('Codex-Regular.otf');
@@ -35,24 +41,18 @@ function setup() {
   canvas = createCanvas(displayWidth, displayHeight);
   canvas.parent('canvas-container');
  
-  //get dna array from server
-  socket.on('fittest', fittestCreature);
+  
     
     
   let popmax = 6;
   let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
-  population = new Population(mutationRate, popmax, fit);
+  population = new Population(mutationRate, popmax);
 
   textFont(font);    
     
 }
 
-function fittestCreature(data){
-        fit = data;
-        console.log("fittest: ", fit);
-
-    }
 
 function draw() {
   background(10);
@@ -70,7 +70,6 @@ function draw() {
     
   counter = frameCount % 240;
 
-    
   //send counter to server
   socket.emit('timer', counter);    
     
@@ -93,7 +92,9 @@ function draw() {
     
   //call next gen when counter resets
   if(counter == 240){
-      nextGen();
+      
+      //send fittest array to nextGen
+      nextGen(fit);
   }
     
 }

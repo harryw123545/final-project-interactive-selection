@@ -10,7 +10,7 @@
 
 // Create the population
 class Population {
-  constructor(m, num, playerFitness_) {
+  constructor(m, num) {
     this.mutationRate = m; // Mutation rate
     this.population = []; // array to hold the current population
     this.matingPool = [];
@@ -33,8 +33,16 @@ class Population {
     
     //variable for fittest array
     this.fit;
-    this.playerFitness = playerFitness_;
+    this.playerFitness;
 
+     this.socket = io.connect('http://localhost');
+      //get dna array from server
+    this.socket.on('fittest', fittestCreature);
+
+    function fittestCreature(data){
+        this.playerFitness = data;
+        console.log(this.playerFitness);
+        }
 
      for (let k = 0; k < num; k++) {
         this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
@@ -46,18 +54,20 @@ class Population {
     this.fittest = new Fittest(new DNA(), width/2, height/2);
   
   }
+    
+    
 
   // Display all faces
   display() {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].display();
     }
-      console.log("fittest: ", this.playerFitness);
 
   }
     
   displayFittest() {
       this.fittest.display();
+
   }
     
 
@@ -104,15 +114,14 @@ class Population {
       let momgenes = mom.getDNA();
       let dadgenes = dad.getDNA();
         
-      let playerGenes = this.playerFitness;
       // Mate their genes
       let child = momgenes.crossover(dadgenes);
-      this.fit = momgenes.crossover(dadgenes);
+      //this.fit = momgenes.crossover(dadgenes);
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
-
-            
+ 
+        
       this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
       this.y1 = this.th / 2 + (i % 2) * this.th;
       this.population[i] = new Face(child, this.x1, this.y1);
