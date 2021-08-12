@@ -1,0 +1,28 @@
+{
+  "name": "interactive-selection",
+  "version": "1.0.0",
+  "description": "interactive selection sketch",
+  "main": "server.js",
+  "scripts": {
+    "test": "hi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harryw123545/final-project-interactive-selection.git"
+  },
+  "keywords": [
+    "npm",
+    "express",
+    "nodejs"
+  ],
+  "author": "harry wakeling",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harryw123545/final-project-interactive-selection/issues"
+  },
+  "homepage": "https://github.com/harryw123545/final-project-interactive-selection#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socketio": "^1.0.0"
+  }
+}
