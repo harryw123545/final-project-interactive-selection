@@ -10,7 +10,7 @@
 
 // Create the population
 class Population {
-  constructor(m, num, PW, PH) {
+  constructor(m, num, playerFitness_) {
     this.mutationRate = m; // Mutation rate
     this.population = []; // array to hold the current population
     this.matingPool = [];
@@ -21,8 +21,8 @@ class Population {
     this.spc = width/num; 
       
     //variables that change depending on screen size
-    this.ph = PW;
-    this.pw = PH;
+//    this.ph = PW;
+//    this.pw = PH;
     
     //console.log("ph: ", this.ph, "pw: ", this.pw);
       
@@ -31,9 +31,10 @@ class Population {
     this.x1;
     this.y1;
     
-      //variable for fittest array
+    //variable for fittest array
     this.fit;
-    
+    this.playerFitness = playerFitness_;
+
 
      for (let k = 0; k < num; k++) {
         this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
@@ -51,12 +52,11 @@ class Population {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].display();
     }
-      
-      
+      console.log("fittest: ", this.playerFitness);
+
   }
     
   displayFittest() {
-
       this.fittest.display();
   }
     
@@ -103,6 +103,8 @@ class Population {
       // Get their genes
       let momgenes = mom.getDNA();
       let dadgenes = dad.getDNA();
+        
+      let playerGenes = this.playerFitness;
       // Mate their genes
       let child = momgenes.crossover(dadgenes);
       this.fit = momgenes.crossover(dadgenes);
@@ -117,6 +119,7 @@ class Population {
         
       //call fittest class    
       this.fittest = new Fittest(this.fit, width/2, height/2);
+
     }
     this.generations++;
 

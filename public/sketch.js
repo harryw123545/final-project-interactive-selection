@@ -12,7 +12,6 @@ let time;
 let spc;
 let font;
 let words = [];
-var canvas;
 let num = 65;
 let y;
 let iter = 2;
@@ -31,8 +30,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(displayWidth, displayHeight);
-  canvas.parent('canvas-container');
+    createCanvas(windowWidth, windowHeight);
         
     //log changes in timer and generation from server
     socket.on('timer', intervalTimer); 

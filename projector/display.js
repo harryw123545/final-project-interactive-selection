@@ -19,6 +19,8 @@ let y;
 
 let counter = 0;
 
+//variable for data taken from server
+var fit;
 
 const socket = io.connect('http://localhost');
 
@@ -33,24 +35,24 @@ function setup() {
   canvas = createCanvas(displayWidth, displayHeight);
   canvas.parent('canvas-container');
  
-    //log changes in timer and generation from server
-//    socket.on('timer', function (data) {
-//        timer = (data.countdown);
-//        //console.log("timer: ", timer);
-//        generation = (data.generation);
-//        //console.log("generation: ", generation);
-//    });
+  //get dna array from server
+  socket.on('fittest', fittestCreature);
     
     
   let popmax = 6;
   let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
-  population = new Population(mutationRate, popmax);
+  population = new Population(mutationRate, popmax, fit);
 
   textFont(font);    
     
 }
 
+function fittestCreature(data){
+        fit = data;
+        console.log("fittest: ", fit);
+
+    }
 
 function draw() {
   background(10);
@@ -67,8 +69,7 @@ function draw() {
   textSize(55);
     
   counter = frameCount % 240;
-    
-  //console.log(counter);
+
     
   //send counter to server
   socket.emit('timer', counter);    
@@ -91,15 +92,17 @@ function draw() {
   time = frameCount*0.015;
     
   //call next gen when counter resets
-  if(counter == 0){
+  if(counter == 240){
       nextGen();
   }
     
 }
 
-function mousePressed() {
+function keyPressed() {
     let fs = fullscreen();
-    fullscreen(!fs);
+    if (keyCode === ENTER) {
+        fullscreen(!fs);
+    }
   }
 
 // If the timer resets, evolve next generation
