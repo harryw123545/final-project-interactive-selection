@@ -31,7 +31,9 @@ class Population {
     this.x1;
     this.y1;
     
-    
+    //variable for fittest array
+    this.fit;
+
 
      for (let k = 0; k < num; k++) {
         this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
@@ -56,6 +58,10 @@ class Population {
   displayFittest() {
 
       this.fittest.display();
+  }
+    
+  returnFit(){
+      return this.fit;
   }
 
   // Are we rolling over any of the faces?
@@ -102,7 +108,7 @@ class Population {
       let dadgenes = dad.getDNA();
       // Mate their genes
       let child = momgenes.crossover(dadgenes);
-      let fit = momgenes.crossover(dadgenes);
+      this.fit = momgenes.crossover(dadgenes);
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
@@ -112,7 +118,7 @@ class Population {
       this.population[i] = new Face(child, this.x1, this.y1);
         
       //call fittest class    
-      this.fittest = new Fittest(fit, width/2, height/2);
+      this.fittest = new Fittest(this.fit, width/2, height/2);
     }
     this.generations++;
 

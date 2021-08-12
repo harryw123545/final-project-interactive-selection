@@ -18,6 +18,7 @@ let io = socket(server);
 
 //countdown variable
 var countdown = 0;
+var mod 
 var generation = 0;
 
 io.sockets.on('connection', (socket) => {
@@ -32,18 +33,19 @@ io.sockets.on('connection', (socket) => {
         io.emit('count', io.engine.clientsCount);
         console.log("a user has disconnected")
     });
+
+    socket.on('timer', intervalTimer);
     
-    setInterval(timeIt, 200)
+    function intervalTimer(counter){
+        //console.log(counter)
+        socket.broadcast.emit('timer', counter)
+    }
     
-    function timeIt() {
-      countdown++
+    socket.on('fittest', fittestCreature);
     
-      if(countdown == 360){
-          countdown = 0
-          generation+=1
-      }
-        //console.log(countdown)
-      io.sockets.emit('timer', { countdown: countdown, generation: generation });
+    function fittestCreature(data){
+        console.log(data)
+        socket.broadcast.emit('fittest', data)
     }
     
 });

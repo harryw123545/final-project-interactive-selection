@@ -14,6 +14,7 @@ class Fittest {
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.n;
+        
     osc = 0;
         
     y = y_;
@@ -123,7 +124,7 @@ class Fittest {
     strokeWeight(2);  
     stroke(255, 0, 255);
     line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
-    console.log("n:", n);
+    //console.log("n:", n);
     
       
     //draw alien description

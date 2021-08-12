@@ -31,6 +31,8 @@ class Population {
     this.x1;
     this.y1;
     
+      //variable for fittest array
+    this.fit;
     
 
      for (let k = 0; k < num; k++) {
@@ -57,6 +59,7 @@ class Population {
 
       this.fittest.display();
   }
+    
 
   // Are we rolling over any of the faces?
   rollover(mx, my) {
@@ -102,7 +105,7 @@ class Population {
       let dadgenes = dad.getDNA();
       // Mate their genes
       let child = momgenes.crossover(dadgenes);
-      let fit = momgenes.crossover(dadgenes);
+      this.fit = momgenes.crossover(dadgenes);
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
@@ -113,7 +116,7 @@ class Population {
       this.population[i] = new Face(child, this.x1, this.y1);
         
       //call fittest class    
-      this.fittest = new Fittest(fit, width/2, height/2);
+      this.fittest = new Fittest(this.fit, width/2, height/2);
     }
     this.generations++;
 
@@ -131,17 +134,6 @@ class Population {
     for (let i = 0; i < this.population.length; i++) {
       if (this.population[i].getFitness() > record) {
         record = this.population[i].getFitness();
-          
-//          var data = {
-//              name: "Fittest creature",
-//              fitness: record,
-//              generation: this.generations
-//          }
-//
-//          if(record > 1){
-//             ref.push(data);
-//             console.log(data); 
-//          }
         
         }
     }

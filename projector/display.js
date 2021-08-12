@@ -17,8 +17,8 @@ let num = 65;
 var img; 
 let y;
 
-let timer;
-let generation;
+let counter = 0;
+
 
 const socket = io.connect('http://localhost');
 
@@ -34,12 +34,12 @@ function setup() {
   canvas.parent('canvas-container');
  
     //log changes in timer and generation from server
-    socket.on('timer', function (data) {
-        timer = (data.countdown);
-        console.log("timer: ", timer);
-        generation = (data.generation);
-        console.log("generation: ", generation);
-    });
+//    socket.on('timer', function (data) {
+//        timer = (data.countdown);
+//        //console.log("timer: ", timer);
+//        generation = (data.generation);
+//        //console.log("generation: ", generation);
+//    });
     
     
   let popmax = 6;
@@ -66,6 +66,13 @@ function draw() {
   textAlign(CENTER);
   textSize(55);
     
+  counter = frameCount % 240;
+    
+  //console.log(counter);
+    
+  //send counter to server
+  socket.emit('timer', counter);    
+    
     
   let word = char(num); // select random word
   text("Generation: " + word, 260, 100);
@@ -75,15 +82,16 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/3.5, height/1.08, 360*1.5, 20, 20, 20);
+  rect(width/3.5, height/1.08, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.5, height/1.08, timer*1.5, 20, 20, 20);
+  rect(width/3.5, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
     
     
   time = frameCount*0.015;
     
-  if(timer <= 1){
+  //call next gen when counter resets
+  if(counter == 0){
       nextGen();
   }
     
@@ -98,6 +106,7 @@ function mousePressed() {
 function nextGen() {
   population.selection();
   population.reproduction();
+  console.log("new population");
   num++;
   num%90;
 }

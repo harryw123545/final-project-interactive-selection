@@ -21,7 +21,7 @@ let ph = 3;
 
 //variables from server
 let timer = 0;
-let generation;
+//let generation;
 
 //connect to server
 const socket = io.connect('http://localhost');
@@ -35,12 +35,8 @@ function setup() {
   canvas.parent('canvas-container');
         
     //log changes in timer and generation from server
-    socket.on('timer', function (data) {
-        timer = (data.countdown);
-        console.log("timer: ", timer);
-        generation = (data.generation);
-        //console.log("generation: ", generation);
-    });
+    socket.on('timer', intervalTimer); 
+       
     
     //change variables if screen is resized
     if(width < height){
@@ -58,7 +54,10 @@ function setup() {
     
 }
 
-
+function intervalTimer(data){
+    //console.log("timer: ", data);
+    timer = data;
+}
 
 function draw() {
   background(10);
@@ -69,27 +68,21 @@ function draw() {
   fill(255);
   textAlign(CENTER);
   textSize(60);
-    
-    
-//  console.log(num);
-//    
-//  let word = char(num); // select random word
-//  text("Generation: " + word, width/2, height/1.13);
       
     
-  //draw rectangles to display timer
+  //draw counter rectangles    
   noStroke();
   
   fill(255);
-  rect(width/3.5, height/1.08, 360*1.5, 20, 20, 20);
+  rect(width/3.5, height/1.08, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.5, height/1.08, timer*1.5, 20, 20, 20);
+  rect(width/3.5, height/1.08, map(timer, 0, 240, 0, 500), 20, 20, 20);
     
   time = frameCount*0.015;
     
   //call next gen when server timer resets    
-  if(timer <= 1){
+  if(timer == 0){
       nextGen();
   }
     
@@ -99,7 +92,13 @@ function draw() {
 function nextGen() {
   population.selection();
   population.reproduction();
-    console.log("pop reset");
+  console.log("pop reset");
+
+  //print fittest array     
+  var fittestCreature = population.returnFit()
+  console.log(fittestCreature);
+  socket.emit('fittest', fittestCreature);
+    
   num++;
   num%90;
 }
