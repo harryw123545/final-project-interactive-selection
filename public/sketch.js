@@ -61,7 +61,6 @@ function draw() {
   background(10);
   // Display the faces
   population.display();
-  //population.displayFittest();
   population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
@@ -95,6 +94,8 @@ function nextGen() {
   //print fittest array     
   var fittestCreature = population.returnFit()
   console.log(fittestCreature);
+    
+  //send fittest array to server
   socket.emit('fittest', fittestCreature);
     
   num++;

@@ -17,7 +17,6 @@ class DNA {
       this.genes = new Array(len);
       for (let i = 0; i < this.genes.length; i++) {
         this.genes[i] = random(0, 1);
-        //console.log("genes: ", this.genes[i]);
       }
     }
   }
