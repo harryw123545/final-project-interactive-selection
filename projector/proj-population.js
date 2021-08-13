@@ -34,22 +34,23 @@ class Population {
     //variable for fittest array
     this.fit;
     this.playerFitness;
+    this.receive;
 
-     this.socket = io.connect('http://localhost');
-      //get dna array from server
-    this.socket.on('fittest', fittestCreature);
+//     this.socket = io.connect('http://localhost');
+//      //get dna array from server
+//    this.socket.on('fittest', fittestCreature);
+//
+//    function fittestCreature(data){
+//        this.playerFitness = data;
+//        console.log(this.playerFitness);
+//        }
 
-    function fittestCreature(data){
-        this.playerFitness = data;
-        console.log(this.playerFitness);
-        }
-
-     for (let k = 0; k < num; k++) {
-        this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
-        this.y1 = this.th / 2 + (k % 2) * this.th;
-        this.population[k] = new Face(new DNA(), this.x1, this.y1);
-
-    }
+//     for (let k = 0; k < num; k++) {
+//        this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
+//        this.y1 = this.th / 2 + (k % 2) * this.th;
+//        this.population[k] = new Face(new DNA(), this.x1, this.y1);
+//
+//    }
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
   
@@ -70,6 +71,10 @@ class Population {
 
   }
     
+  receiveFit(data) {
+      this.receive = data;
+      this.fittest = new Fittest(this.receive, width/2, height/2);
+  }
 
   // Are we rolling over any of the faces?
   rollover(mx, my) {
@@ -103,7 +108,7 @@ class Population {
   // Making the next generation
   reproduction() {
     // Refill the population with children from the mating pool
-    for (let i = 0; i < this.population.length; i++) {
+    //for (let i = 0; i < this.population.length; i++) {
       // Sping the wheel of fortune to pick two parents
       let m = floor(random(this.matingPool.length));
       let d = floor(random(this.matingPool.length));
@@ -115,21 +120,22 @@ class Population {
       let dadgenes = dad.getDNA();
         
       // Mate their genes
-      let child = momgenes.crossover(dadgenes);
+      //let child = momgenes.crossover(this.fit);
       //this.fit = momgenes.crossover(dadgenes);
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
- 
-        
+      
+       //console.log("received: ", this.receive);
+
       this.x1 = this.tw / 2 + parseInt(i / 2) * this.tw;
       this.y1 = this.th / 2 + (i % 2) * this.th;
-      this.population[i] = new Face(child, this.x1, this.y1);
+      //this.population[i] = new Face(child, this.x1, this.y1);
         
       //call fittest class    
-      this.fittest = new Fittest(this.fit, width/2, height/2);
+      //this.fittest = new Fittest(this.fit, width/2, height/2);
 
-    }
+   // }
     this.generations++;
 
   }

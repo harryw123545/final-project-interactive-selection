@@ -23,13 +23,16 @@ const socket = io.connect('http://localhost');
 //
 //
 ////variable for data taken from server
-//let fit;
+let fit;
 ////get dna array from server
-//socket.on('fittest', fittestCreature);
+socket.on('fittest', fittestCreature);
 //
-//function fittestCreature(data){
-//        fit = data;
-//    }
+function fittestCreature(data){
+    fit = data;
+    //population.fit = data;
+    population.receiveFit(fit);
+//    console.log(population.fit);
+}
 
 function preload() {
   font = loadFont('Codex-Regular.otf');
@@ -91,11 +94,11 @@ function draw() {
   time = frameCount*0.015;
     
   //call next gen when counter resets
-  if(counter == 240){
-      
-      //send fittest array to nextGen
-      nextGen(fit);
-  }
+//  if(counter == 240){
+//      
+//      //send fittest array to nextGen
+//      nextGen();
+//  }
     
 }
 
@@ -109,7 +112,7 @@ function keyPressed() {
 // If the timer resets, evolve next generation
 function nextGen() {
   population.selection();
-  population.reproduction();
+  //population.reproduction();
   console.log("new population");
   num++;
   num%90;

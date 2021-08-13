@@ -23,7 +23,7 @@ let timer = 0;
 //let generation;
 
 //connect to server
-const socket = io.connect('http://localhost');
+const socket = io.connect('http://192.168.2.15');
 
 function preload() {
   font = loadFont('Codex-Regular.otf')
@@ -44,7 +44,7 @@ function setup() {
     }
     
   let popmax = 6;
-  let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
+  let mutationRate = 0.09 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(mutationRate, popmax, pw, ph);
 
