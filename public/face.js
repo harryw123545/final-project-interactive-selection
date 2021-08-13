@@ -45,14 +45,14 @@ class Face {
     let size = 1;
 
 
-    var n1 = map(genes[1], 0, 1, 0.3, 1);
-    var n2 = map(genes[2], 0, 1, 0.3, 1);
-    var n3 = map(genes[3], 0, 1, 0.3, 1);
-    var m = map(genes[4], 0, 1, 1, 6);
+    var n1 = map(genes[1], 0, 1, 0.1, 1.5);
+    var n2 = map(genes[2], 0, 1, 0.1, 1.5);
+    var n3 = map(genes[3], 0, 1, 0.1, 1.5);
+    var m = map(genes[4], 0, 1, 5, 36);
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
-    let add = map(genes[6], 0, 1, 0.0001, 0.001);
+    let add = map(genes[8], 0, 1, 0.0001, 0.001);
 
     //define noise
     let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
@@ -91,12 +91,12 @@ class Face {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 80;
+      var total = 90;
       var increment = TWO_PI / total;
 
       beginShape();
         for(var angle = 0; angle <= TWO_PI; angle += increment){
-            fill(127 + 127 * sin(total * iter1*radius + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
+            fill(127 + 127 * sin(total*3 * iter1  + time), 127 + 127 * sin(total*3 * iter2 * radius + time), 127 + 127 * sin(total*3 * iter3*radius + time));
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);

@@ -36,17 +36,17 @@ class Fittest {
     let size = 1.2;
 
 
-    var n1 = map(genes[1], 0, 1, 0.3, 1);
-    var n2 = map(genes[2], 0, 1, 0.3, 1);
-    var n3 = map(genes[3], 0, 1, 0.3, 1);
-    var m = map(genes[4], 0, 1, 1, 6);
+    var n1 = map(genes[1], 0, 1, 0.1, 1.5);
+    var n2 = map(genes[2], 0, 1, 0.1, 1.5);
+    var n3 = map(genes[3], 0, 1, 0.1, 1.5);
+    var m = map(genes[4], 0, 1, 5, 36);
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
     let add = map(genes[6], 0, 1, 0.0005, 0.004);
 
     //define noise
-    let noiseIter = map(genes[7], 0, 1, 0.05, 0.4);
+    let noiseIter = map(genes[7], 0, 1, 0.05, 0.2);
     osc += add;
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
@@ -81,26 +81,28 @@ class Fittest {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 80;
+      var total = 90;
       var increment = TWO_PI / total;
         
       beginShape();
         for(var angle = 0; angle <= TWO_PI; angle += increment){
-            fill(127 + 127 * sin(total * iter1 + time), 127 + 127 * sin(total * iter2*radius + time), 127 + 127 * sin(total * iter3*radius + time));
+            
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
-
+            strokeWeight(0.2);
+            fill(127 + 127 * sin(total*3 * iter1  + time), 127 + 127 * sin(total*3 * iter2 * radius + time), 127 + 127 * sin(total*3 * iter3*radius + time));
+            
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
 
             curveVertex(x, y);
         }
-      endShape();
+      endShape(CLOSE);
 
       //recursively draw shapes
       if(radius > 0.2) {
-          drawShapes(radius/1.025);
+          drawShapes(radius/1.02);
       }
         
         pop();
