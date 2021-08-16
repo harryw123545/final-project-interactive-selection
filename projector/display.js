@@ -17,15 +17,18 @@ let num = 65;
 var img; 
 let y;
 
+let clientCounter = 0;
+var clientBubble = [];
+
+//variable for second canvas
+let extraCanvas;
+
 let counter = 0;
 
 const socket = io.connect('http://localhost');
 
 ////variable for data taken from server
 let fit;
-
-//get dna array from server
-socket.on('fittest', fittestCreature);
 
 function fittestCreature(data){
     fit = data;
@@ -34,6 +37,15 @@ function fittestCreature(data){
 //    console.log(population.fit);
 }
 
+ //get dna array from server
+    socket.on('fittest', fittestCreature);
+
+    socket.on('count', count => {
+            clientCount = count;
+            //console.log(clientCount);
+            clientCounter = clientCount;
+        });
+
 function preload() {
   font = loadFont('Codex-Regular.otf');
   img = loadImage('background-terminal.png');
@@ -41,11 +53,12 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(displayWidth, displayHeight);
-  canvas.parent('canvas-container');
- 
-  
-    
+  createCanvas(displayWidth, displayHeight);
+  //canvas.parent('canvas-container');
+
+  extraCanvas = createGraphics(80, width/4);
+  extraCanvas.background(10);
+
     
   let popmax = 6;
   let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
@@ -54,22 +67,35 @@ function setup() {
 
   textFont(font);    
     
+  for(let i = 0; i < clientCounter; i++){
+      clientBubble.push(new clientShape());
+  }
+    
 }
 
 
 function draw() {
+    
   background(10);
-  // Display the faces
-  //population.display();
-  population.displayFittest();
 
+
+  //draw background image    
   imageMode(CORNER);
   image(img, 20, 20, width-50, height-90);
     
-//  population.rollover(mouseX, mouseY);
+  // Display the faces
+  population.displayFittest();
+    
+    
   fill(255);
   textAlign(CENTER);
   textSize(55);
+    
+  for (let i = 0; i < clientBubble.length; i++) {
+    clientBubble[i].move();
+    clientBubble[i].display();
+    console.log(i);
+  }
     
   counter = frameCount % 240;
 
@@ -80,7 +106,7 @@ function draw() {
   let word = char(num); // select random word
   text("Generation: " + word, 260, 100);
   
-
+    
   //draw counter rectangles    
   noStroke();
   
@@ -89,8 +115,7 @@ function draw() {
     
   fill(255, 0, 255);
   rect(width/3.5, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
-    
-    
+            
   time = frameCount*0.015;
     
   //call next gen when counter resets
@@ -101,6 +126,7 @@ function draw() {
   }
     
 }
+
 
 function keyPressed() {
     let fs = fullscreen();
@@ -118,4 +144,5 @@ function nextGen() {
 
 function windowResized() {
   resizeCanvas(window.innerWidth, window.innerHeight);
+
 }

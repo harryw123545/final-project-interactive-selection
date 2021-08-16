@@ -23,18 +23,18 @@ class Fittest {
     
   // Display the face
   display() {
+
     // We are using the face's DNA to pick properties for this face
     // such as: head size, color, eye position, etc.
     // Now, since every gene is a floating point between 0 and 1, we map the values
     let genes = this.dna.genes;
     let r = map(genes[2], 0, 1, 80, 100);
-    let c = color(genes[1], genes[2], genes[3]);
+    let c;
     
     let iter1 = map(genes[1], 0, 1, 0.01, 0.1);
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
     let iter3 = map(genes[3], 0, 1, 0.01, 0.13);
     let size = 1.2;
-
 
     var n1 = map(genes[1], 0, 1, 0.1, 1.5);
     var n2 = map(genes[2], 0, 1, 0.1, 1.5);
@@ -44,6 +44,9 @@ class Fittest {
     var a = 1;
     var b = 1;
     let add = map(genes[6], 0, 1, 0.0005, 0.004);
+    var speed = map(genes[9], 0, 1, 0.001, 0.03);
+      
+      
 
     //define noise
     let noiseIter = map(genes[7], 0, 1, 0.05, 0.2);
@@ -81,17 +84,20 @@ class Fittest {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 90;
-      var increment = TWO_PI / total;
+      var total = 80;
+      var increment = 2*PI / total;
         
       beginShape();
-        for(var angle = 0; angle <= TWO_PI; angle += increment){
+        for(var angle = 0; angle <= 2*PI; angle += increment){
             
             var rad = superShape(angle);
             
-            let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
+            let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
             strokeWeight(0.2);
-            fill(127 + 127 * sin(total*3 * iter1  + time), 127 + 127 * sin(total*3 * iter2 * radius + time), 127 + 127 * sin(total*3 * iter3*radius + time));
+            
+            c = color(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
+            
+            fill(c);
             
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
@@ -120,21 +126,27 @@ class Fittest {
     y = y + 0.015;
     let n = noise(y) * this.wh+this.y/2;
       
-
     //draw scan line
-    push();
-    strokeWeight(2);  
-    stroke(255, 0, 255);
-    line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
-    //console.log("n:", n);
+    //push();
     
+    strokeWeight(1);  
+    stroke(c);
+    line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
+    
+    //draw rectangle for displaying colour value
+    extraCanvas.fill(c);
+    extraCanvas.noStroke();
+    extraCanvas.rect(0, n-210, 10, 20);
+    
+    //pop();
+    image(extraCanvas, this.x + this.wh/2, this.wh-120);
+
       
     //draw alien description
     fill(255);
     textSize(40);  
     noStroke();
     text(this.word, width / 2, height/1.25); // draw the word
-    pop();
     
   }
 

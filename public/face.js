@@ -53,6 +53,7 @@ class Face {
     var a = 1;
     var b = 1;
     let add = map(genes[8], 0, 1, 0.0001, 0.001);
+    var speed = map(genes[9], 0, 1, 0.001, 0.03);
 
     //define noise
     let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
@@ -91,15 +92,15 @@ class Face {
       scale(radius);
 
       //level of detail in shapes    
-      var total = 90;
-      var increment = TWO_PI / total;
+      var total = 80;
+      var increment = 2*PI / total;
 
       beginShape();
-        for(var angle = 0; angle <= TWO_PI; angle += increment){
-            fill(127 + 127 * sin(total*3 * iter1  + time), 127 + 127 * sin(total*3 * iter2 * radius + time), 127 + 127 * sin(total*3 * iter3*radius + time));
+        for(var angle = 0; angle <= 2*PI; angle += increment){
+            fill(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
             var rad = superShape(angle);
             
-            let offset = map(noise(angle * 0.3 + frameCount * 0.025), -1, 1, 0, 1);
+            let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
 
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
@@ -131,9 +132,9 @@ class Face {
     fill(255);  
     rect(this.x-this.wh/2, this.y+this.wh/2, this.wh, 20);
       
-    textSize(30);  
-    //text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
-    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
+//    textSize(30);  
+//    //text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
+//    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
 
     
     //change colour when move rolls over
