@@ -17,7 +17,7 @@ let num = 65;
 var img; 
 let y;
 
-let clientCounter = 0;
+var clientCount = 0;
 var clientBubble = [];
 
 //variable for second canvas
@@ -43,7 +43,6 @@ function fittestCreature(data){
     socket.on('count', count => {
             clientCount = count;
             //console.log(clientCount);
-            clientCounter = clientCount;
         });
 
 function preload() {
@@ -67,10 +66,9 @@ function setup() {
 
   textFont(font);    
     
-  for(let i = 0; i < clientCounter; i++){
-      clientBubble.push(new clientShape());
+  for(let i = 0; i < clientCount; i++){
+       clientBubble.push(new clientShape());
   }
-    
 }
 
 
@@ -86,16 +84,23 @@ function draw() {
   // Display the faces
   population.displayFittest();
     
+  console.log(clientCount);
+    
+  if(clientCount < clientBubble.length){
+        clientBubble.splice(0, 1);
+  } 
+  else if(clientCount > clientBubble.length){
+      clientBubble.push(new clientShape());
+  }
+    
+  for (let i = 0; i < clientBubble.length; i++) {
+        clientBubble[i].move();
+        clientBubble[i].display();
+  }
     
   fill(255);
   textAlign(CENTER);
   textSize(55);
-    
-  for (let i = 0; i < clientBubble.length; i++) {
-    clientBubble[i].move();
-    clientBubble[i].display();
-    console.log(i);
-  }
     
   counter = frameCount % 240;
 
