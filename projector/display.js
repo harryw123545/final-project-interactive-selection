@@ -98,15 +98,18 @@ function draw() {
         clientBubble[i].display();
   }
     
-  fill(255);
-  textAlign(CENTER);
-  textSize(55);
     
+  //create counter - send to server
   counter = frameCount % 240;
 
   //send counter to server
   socket.emit('timer', counter);    
     
+  
+  //draw creature name    
+  fill(255);
+  textAlign(CENTER);
+  textSize(55);
     
   let word = char(num); // select random word
   text("Generation: " + word, 260, 100);
@@ -116,11 +119,12 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/3.5, height/1.08, 500, 20, 20, 20);
+  rect(width/3.3, height/1.08, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.5, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
-            
+  rect(width/3.3, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
+      
+  //extablish time variable for shapes    
   time = frameCount*0.015;
     
   //call next gen when counter resets

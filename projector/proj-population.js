@@ -17,7 +17,7 @@ class Population {
     //variable for received fitness array
     this.receive;
       
-    this.letters = new Letters(new DNA());
+    this.glyph = new Glyphs(new DNA());
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
   
@@ -26,14 +26,14 @@ class Population {
     
   displayFittest() {
       this.fittest.display();
-      this.letters.display();
+      this.glyph.display();
 
   }
     
   receiveFit(data) {
       this.receive = data;
       this.fittest = new Fittest(this.receive, width/2, height/2);
-      this.letters = new Letters(this.receive);
+      this.glyph = new Glyphs(this.receive);
 
   }
 
