@@ -5,8 +5,8 @@ let app = express();
 
 var port = process.env.PORT || 3000;
 var server = app.listen(port);
+console.log(`starting server at ${port}`);
 
-console.log('The server is now running');
 app.use(express.static("projector"));
 app.use(express.static("public"));
 
