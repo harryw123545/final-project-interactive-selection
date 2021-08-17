@@ -120,7 +120,7 @@ class Fittest {
         strokeWeight(0.5);
         noFill();
         rectMode(CENTER);
-        rect(0, 0, this.wh, this.wh);
+        rect(0, 0, this.wh, this.wh, 20);
     pop();
       
     pop();

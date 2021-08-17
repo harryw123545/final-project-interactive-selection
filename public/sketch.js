@@ -30,7 +30,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(displayWidth, displayHeight);
         
     //log changes in timer and generation from server
     socket.on('timer', intervalTimer); 
@@ -43,7 +43,7 @@ function setup() {
         //console.log("pw: ", pw, "ph: ", ph);
     }
     
-  let popmax = 6;
+  let popmax = 9;
   let mutationRate = 0.09 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(mutationRate, popmax, pw, ph);
@@ -71,10 +71,10 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/3.5, height/1.08, 500, 20, 20, 20);
+  rect(width/3.5, height/1.5, width/2, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.5, height/1.08, map(timer, 0, 240, 0, 500), 20, 20, 20);
+  rect(width/3.5, height/1.5, map(timer, 0, 240, 0, width/2), 20, 20, 20);
     
   time = frameCount*0.015;
     

@@ -26,7 +26,10 @@ class Face {
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.osc = 0;
-
+      
+    //values for fitness score
+    this.col = [255, 0, 255];
+    this.recCol = [255];
   }
 
     
@@ -36,6 +39,9 @@ class Face {
     // such as: head size, color, eye position, etc.
     // Now, since every gene is a floating point between 0 and 1, we map the values
     let genes = this.dna.genes;
+      
+    let sinCol = 0;
+      
     let r = map(genes[2], 0, 1, 80, 100);
     let c = color(genes[1], genes[2], genes[3]);
     
@@ -123,28 +129,36 @@ class Face {
     if (this.rolloverOn) fill(100, 20);
     else noFill();
     rectMode(CENTER);
-    rect(0, 0, this.wh, this.wh);
+    rect(0, 0, this.wh, this.wh, 10);
     pop();
 
     // Display fitness value
       
-    //draw rectangle underneath  
-    fill(255);  
-    rect(this.x-this.wh/2, this.y+this.wh/2, this.wh, 20);
+    //draw rectangle underneath 
+    noStroke();  
+    fill(this.recCol);  
+    rect(this.x-this.wh/2, this.y+this.wh/1.6, this.wh, 20, 20);
       
 //    textSize(30);  
 //    //text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
 //    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
 
-    
     //change colour when move rolls over
-    if (this.rolloverOn) fill(255, 0, 0);
+    if (this.rolloverOn) fill(this.col);
     else fill(155);
       
     //display fitness score as a rectangle
-    rect(this.x-this.wh/2,this.y+this.wh/2, this.fitness, 20);
-      
+    rect(this.x-this.wh/2, this.y+this.wh/1.6, this.fitness % this.wh, 20, 20);
     
+    if(this.fitness >= this.wh){
+        console.log("colour test");
+        this.recCol = [127 + 127 * sin(sinCol + frameCount*0.05), 0, 255];
+        this.col = [255, 0, 255];
+        fill(this.col);
+        rect(this.x-this.wh/2, this.y+this.wh/1.6, this.fitness % this.wh, 20, 20);
+    } else fill(100);
+      
+      sinCol += 0.01;
   }
 
   getFitness() {

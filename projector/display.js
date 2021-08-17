@@ -86,6 +86,7 @@ function draw() {
     
   console.log(clientCount);
     
+  //statements for showing client bubbles on screen    
   if(clientCount < clientBubble.length){
         clientBubble.splice(0, 1);
   } 
@@ -97,6 +98,11 @@ function draw() {
         clientBubble[i].move();
         clientBubble[i].display();
   }
+    
+//  if(clientCount < 2){
+//      fill(255, 0, 0);
+//      ellipse(width/2, height/2, 200, 200);
+//  }
     
     
   //create counter - send to server

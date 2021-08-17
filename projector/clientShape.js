@@ -18,7 +18,7 @@ class clientShape {
         ellipse(this.x, this.y, this.size, this.size);
 
         noFill();
-        stroke(255, 100);
+        stroke(255);
         strokeWeight(0.5);
         ellipse(width/5, height/2, 200, 200);
         this.d = dist(this.centreX, this.centreY, this.x, this.y);
