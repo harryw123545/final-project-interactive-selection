@@ -115,11 +115,14 @@ class Fittest {
     }
 
     // Draw the bounding box
-    stroke(255, 100);
-    if (this.rolloverOn) fill(100, 20);
-    else noFill();
-    rectMode(CENTER);
-    rect(0, 0, this.wh, this.wh);
+    push();
+        stroke(255);
+        strokeWeight(0.5);
+        noFill();
+        rectMode(CENTER);
+        rect(0, 0, this.wh, this.wh);
+    pop();
+      
     pop();
 
     //apply noise to y value of line

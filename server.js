@@ -2,9 +2,11 @@
 // Setup express web server and listen on port 3000
 let express = require('express');
 let app = express();
-let server = app.listen(80);
 
-console.log('The server is now running at http://localhost/');
+var port = process.env.PORT || 3000;
+var server = app.listen(port);
+
+console.log('The server is now running');
 app.use(express.static("projector"));
 app.use(express.static("public"));
 
