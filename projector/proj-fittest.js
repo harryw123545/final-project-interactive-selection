@@ -135,7 +135,7 @@ class Fittest {
     //draw rectangle for displaying colour value
     extraCanvas.fill(c);
     extraCanvas.noStroke();
-    extraCanvas.rect(0, n-310, 10, 20);
+    extraCanvas.rect(0, n-210, 10, 20);
     
     //pop();
     image(extraCanvas, this.x + this.wh/2+2, this.y - this.wh/2);

@@ -59,6 +59,8 @@ function setup() {
   extraCanvas = createGraphics(80, width/4);
   extraCanvas.background(10);
 
+  //hide cursor from view
+  noCursor();
     
   let popmax = 6;
   let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
@@ -100,11 +102,6 @@ function draw() {
         clientBubble[i].display();
   }
     
-//  if(clientCount < 2){
-//      fill(255, 0, 0);
-//      ellipse(width/2, height/2, 200, 200);
-//  }
-    
     
   //create counter - send to server
   counter = frameCount % 240;
@@ -126,10 +123,10 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/2.7, height/1.05, 500, 20, 20, 20);
+  rect(width/3.3, height/1.08, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/2.7, height/1.05, map(counter, 0, 240, 0, 500), 20, 20, 20);
+  rect(width/3.3, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
       
   //extablish time variable for shapes    
   time = frameCount*0.015;

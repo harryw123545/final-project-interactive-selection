@@ -25,6 +25,13 @@ let timer = 0;
 //connect to server
 const socket = io.connect('https://interactive-selection.herokuapp.com/');
 
+//create instance of hammer library
+var hammertime = new Hammer(myElement, myOptions);
+hammertime.on('pan', function(ev) {
+	console.log(ev);
+});
+
+
 function preload() {
   font = loadFont('Codex-Regular.otf')
 }
@@ -71,10 +78,10 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/3.5, height/1.5, width/2, 20, 20, 20);
+  rect(width/5, height/1.25, width/1.6, 20, 35, 20);
     
   fill(255, 0, 255);
-  rect(width/3.5, height/1.5, map(timer, 0, 240, 0, width/2), 20, 20, 20);
+  rect(width/5, height/1.25, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
     

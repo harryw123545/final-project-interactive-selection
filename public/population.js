@@ -26,7 +26,7 @@ class Population {
     //console.log("ph: ", this.ph, "pw: ", this.pw);
       
     this.tw = width / 3;
-    this.th = height / 6;
+    this.th = height / 4;
     this.x1;
     this.y1;
     
@@ -108,8 +108,8 @@ class Population {
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
             
-      this.x1 = this.tw / 3 + parseInt(i / this.ph) * this.tw;
-      this.y1 = this.th / 3 + (i % this.ph) * this.th;
+      this.x1 = this.tw / 2 + parseInt(i / this.ph) * this.tw;
+      this.y1 = this.th / 2 + (i % this.ph) * this.th;
       this.population[i] = new Face(child, this.x1, this.y1);
     }
     this.generations++;
