@@ -87,8 +87,14 @@ function draw() {
   // Display the faces
   population.displayFittest();
     
-  console.log(clientCount);
+  //console.log(clientCount);
     
+  //draw bounding circle    
+  noFill();
+  stroke(255);
+  strokeWeight(0.5);
+  ellipse(width/5, height/2, 200, 200);
+  
   //statements for showing client bubbles on screen    
   if(clientCount < clientBubble.length){
         clientBubble.splice(0, 1);
@@ -97,7 +103,7 @@ function draw() {
       clientBubble.push(new clientShape());
   }
     
-  for (let i = 0; i < clientBubble.length; i++) {
+  for (let i = 1; i < clientBubble.length; i++) {
         clientBubble[i].move();
         clientBubble[i].display();
   }
