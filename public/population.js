@@ -25,8 +25,8 @@ class Population {
     
     //console.log("ph: ", this.ph, "pw: ", this.pw);
       
-    this.tw = width / 6;
-    this.th = height / 3;
+    this.tw = width / 3;
+    this.th = height / 6;
     this.x1;
     this.y1;
     
@@ -35,8 +35,8 @@ class Population {
 
 
      for (let k = 0; k < num; k++) {
-        this.x1 = this.tw / 2 + parseInt(k / 2) * this.tw;
-        this.y1 = this.th / 2 + (k % 2) * this.th;
+        this.x1 = this.tw / 2 + parseInt(k / this.ph) * this.tw;
+        this.y1 = this.th / 2 + (k % this.ph) * this.th;
         this.population[k] = new Face(new DNA(), this.x1, this.y1);
 
     }
