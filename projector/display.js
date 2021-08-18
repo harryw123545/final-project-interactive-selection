@@ -15,7 +15,8 @@ let words = [];
 var canvas;
 let num = 65;
 var img; 
-let y;
+let noiseIter = 0;
+
 
 var clientCount = 0;
 var clientBubble = [];
@@ -125,10 +126,10 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/3.3, height/1.08, 500, 20, 20, 20);
+  rect(width/2.7, height/1.05, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.3, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
+  rect(width/2.7, height/1.05, map(counter, 0, 240, 0, 500), 20, 20, 20);
       
   //extablish time variable for shapes    
   time = frameCount*0.015;

@@ -16,13 +16,14 @@ class Fittest {
     this.n;
         
     osc = 0;
-        
-    y = y_;
   }
 
     
   // Display the face
   display() {
+      
+//    extraCanvas = createGraphics(this.wh/8, this.wh);
+//    extraCanvas.background(100);
 
     // We are using the face's DNA to pick properties for this face
     // such as: head size, color, eye position, etc.
@@ -46,10 +47,7 @@ class Fittest {
     let add = map(genes[6], 0, 1, 0.0005, 0.004);
     var speed = map(genes[9], 0, 1, 0.001, 0.03);
       
-      
 
-    //define noise
-    let noiseIter = map(genes[7], 0, 1, 0.05, 0.2);
     osc += add;
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
@@ -115,19 +113,17 @@ class Fittest {
     }
 
     // Draw the bounding box
-    push();
         stroke(255);
-        strokeWeight(0.5);
+        strokeWeight(1);
         noFill();
         rectMode(CENTER);
         rect(0, 0, this.wh, this.wh, 20);
-    pop();
       
     pop();
 
     //apply noise to y value of line
-    y = y + 0.015;
-    let n = noise(y) * this.wh+this.y/2;
+    noiseIter += 0.015;
+    let n = noise(noiseIter) * this.wh+this.y/2;
       
     //draw scan line
     //push();
@@ -139,10 +135,10 @@ class Fittest {
     //draw rectangle for displaying colour value
     extraCanvas.fill(c);
     extraCanvas.noStroke();
-    extraCanvas.rect(0, n-210, 10, 20);
+    extraCanvas.rect(0, n-310, 10, 20);
     
     //pop();
-    image(extraCanvas, this.x + this.wh/2, this.wh-120);
+    image(extraCanvas, this.x + this.wh/2+2, this.y - this.wh/2);
 
       
     //draw alien description

@@ -11,8 +11,6 @@
 // Create the population
 class Population {
   constructor(m, num) {
-
-    this.fittest = new Fittest(new DNA(), width/2, height/2);  
     
     //variable for received fitness array
     this.receive;

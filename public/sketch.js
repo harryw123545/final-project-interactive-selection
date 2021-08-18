@@ -79,7 +79,7 @@ function draw() {
   time = frameCount*0.015;
     
   //call next gen when server timer resets    
-  if(timer == 0){
+  if(floor(timer) <= 1){
       nextGen();
   }
     
