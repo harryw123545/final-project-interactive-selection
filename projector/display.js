@@ -25,7 +25,7 @@ let extraCanvas;
 
 let counter = 0;
 
-const socket = io.connect('http://localhost');
+const socket = io.connect('https://interactive-selection.herokuapp.com/');
 
 ////variable for data taken from server
 let fit;
