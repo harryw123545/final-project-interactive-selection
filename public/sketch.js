@@ -82,9 +82,9 @@ function draw() {
   rect(width/5, height/1.25, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
-    
+    console.log(timer);
   //call next gen when server timer resets    
-  if(parseInt(timer) <= 1){
+  if(timer == 0){
       nextGen();
   }
     
@@ -98,7 +98,7 @@ function nextGen() {
 
   //print fittest array     
   var fittestCreature = population.returnFit()
-  console.log(fittestCreature);
+  //console.log(fittestCreature);
     
   //send fittest array to server
   socket.emit('fittest', fittestCreature);

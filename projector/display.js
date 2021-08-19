@@ -34,7 +34,11 @@ let fit;
 
 function fittestCreature(data){
     fit = data;
-    //population.fit = data;
+    
+//    for(let i = 0; i < clientCount; i++){
+//      console.log("clients: ", i);
+//    }
+    
     population.receiveFit(fit);
 //    console.log(population.fit);
 }
@@ -98,6 +102,7 @@ function draw() {
   stroke(255);
   strokeWeight(1);
   ellipse(width/5, height/2, 200, 200);
+
   
   //statements for showing client bubbles on screen    
   if(clientCount < clientBubble.length){
@@ -166,6 +171,7 @@ function keyPressed() {
 // If the timer resets, evolve next generation
 function nextGen() {
   //console.log("new population");
+  //saveCanvas('myCanvas', 'png');
   newGenSound.play();
   num++;
   num%85;

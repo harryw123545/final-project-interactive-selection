@@ -3,6 +3,7 @@
 let express = require('express');
 let app = express();
 
+//var port = process.env.PORT || 3000;
 var port = process.env.PORT || 3000;
 var server = app.listen(port);
 console.log(`starting server at ${port}`);
