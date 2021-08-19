@@ -131,7 +131,7 @@ class Face {
     // Draw the bounding box
     //noStroke();
     stroke(255, 100);
-    if (this.rolloverOn) fill(100, 20);
+    if (this.rolloverOn) fill(255, 150);
     else noFill();
     rectMode(CENTER);
     rect(0, 0, this.wh, this.wh, 10);
@@ -159,7 +159,6 @@ class Face {
     rect(this.x-this.wh/2, this.y+this.wh/1.3, this.fitness % this.wh, 15, 20);
     
     if(this.fitness >= this.wh){
-        console.log("colour test");
         this.recCol = [127 + 127 * sin(sinCol + frameCount*0.05), 0, 255];
         this.col = [255, 0, 255];
         fill(this.col);

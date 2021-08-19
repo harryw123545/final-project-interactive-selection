@@ -83,10 +83,10 @@ class Fittest {
 
       //level of detail in shapes    
       var total = 80;
-      var increment = 2*PI / total;
+      var increment = TWO_PI / total;
         
       beginShape();
-        for(var angle = 0; angle <= 2*PI; angle += increment){
+        for(var angle = 0; angle <= TWO_PI; angle += increment){
             
             var rad = superShape(angle);
             

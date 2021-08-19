@@ -92,7 +92,7 @@ function draw() {
   //draw bounding circle    
   noFill();
   stroke(255);
-  strokeWeight(0.5);
+  strokeWeight(1);
   ellipse(width/5, height/2, 200, 200);
   
   //statements for showing client bubbles on screen    
@@ -118,11 +118,13 @@ function draw() {
   
   //draw creature name    
   fill(255);
+  noStroke();
   textAlign(CENTER);
   textSize(55);
     
   let word = char(num); // select random word
-  text("Generation: " + word, 260, 100);
+  console.log("num: ", num);
+  text(`generation: ${word}`, 260, 100);
   
     
   //draw counter rectangles    
@@ -138,8 +140,8 @@ function draw() {
   time = frameCount*0.015;
     
   //call next gen when counter resets
-  if(counter == 240){
-      
+  if(counter == 0){
+      console.log("test");
       //send fittest array to nextGen
       nextGen();
   }
@@ -158,7 +160,7 @@ function keyPressed() {
 function nextGen() {
   console.log("new population");
   num++;
-  num%90;
+  num%85;
 }
 
 function windowResized() {

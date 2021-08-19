@@ -12,15 +12,13 @@ let time;
 let spc;
 let font;
 let words = [];
-let num = 65;
-let y;
+//let y;
 let iter = 2;
 let pw = 2;
 let ph = 3;
 
 //variables from server
 let timer = 0;
-//let generation;
 
 //connect to server
 const socket = io.connect('https://interactive-selection.herokuapp.com/');
@@ -104,9 +102,7 @@ function nextGen() {
     
   //send fittest array to server
   socket.emit('fittest', fittestCreature);
-    
-  num++;
-  num%90;
+
 }
 
 function windowResized() {
