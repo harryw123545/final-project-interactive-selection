@@ -179,7 +179,7 @@ class Face {
 
   // Increment fitness if mouse is rolling over face
   rollover(mx, my) {
-    if (this.r.contains(mx, my)) {
+    if (this.r.contains(mx, my) && mouseIsPressed) {
       this.rolloverOn = true;
       this.fitness += 0.4;
     } else {
