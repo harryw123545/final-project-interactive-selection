@@ -5,18 +5,17 @@
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 
-//let population;
-//let info;
 var osc;
 let time;
 let spc;
-//let font;
 let words = [];
 var canvas;
 let num = 65;
 var img; 
 let noiseIter = 0;
 
+//variable for sound effects
+var newGenSound, newUser, dreaming;
 
 var clientCount = 0;
 var clientBubble = [];
@@ -24,11 +23,13 @@ var clientBubble = [];
 //variable for second canvas
 let extraCanvas;
 
+//variable for generation counter
 let counter = 0;
 
+//establish socket connection
 const socket = io.connect('https://interactive-selection.herokuapp.com/');
 
-////variable for data taken from server
+//variable for data taken from server
 let fit;
 
 function fittestCreature(data){
@@ -47,6 +48,9 @@ function fittestCreature(data){
         });
 
 function preload() {
+  newGenSound = loadSound('sounds/newGen.MP3');
+  newUser = loadSound('sounds/newUser.MP3');
+  dreaming = loadSound('sounds/dreaming.MP3');
   font = loadFont('Codex-Regular.otf');
   img = loadImage('background-terminal.png');
 
@@ -101,6 +105,7 @@ function draw() {
   } 
   else if(clientCount > clientBubble.length){
       clientBubble.push(new clientShape());
+      newUser.play();
   }
     
   for (let i = 1; i < clientBubble.length; i++) {
@@ -123,7 +128,6 @@ function draw() {
   textSize(55);
     
   let word = char(num); // select random word
-  console.log("num: ", num);
   text(`generation: ${word}`, 260, 100);
   
     
@@ -141,7 +145,6 @@ function draw() {
     
   //call next gen when counter resets
   if(counter == 0){
-      console.log("test");
       //send fittest array to nextGen
       nextGen();
   }
@@ -153,12 +156,17 @@ function keyPressed() {
     let fs = fullscreen();
     if (keyCode === ENTER) {
         fullscreen(!fs);
+        newGenSound.play();
+        newUser.play();
+        dreaming.play();
+        dreaming.loop();
     }
   }
 
 // If the timer resets, evolve next generation
 function nextGen() {
-  console.log("new population");
+  //console.log("new population");
+  newGenSound.play();
   num++;
   num%85;
 }
