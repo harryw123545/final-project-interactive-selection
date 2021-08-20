@@ -26,7 +26,7 @@ class Population {
     //console.log("ph: ", this.ph, "pw: ", this.pw);
       
     this.tw = width / 3;
-    this.th = height / 4;
+    this.th = height / 4.5;
     this.x1;
     this.y1;
     

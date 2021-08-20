@@ -76,10 +76,10 @@ function draw() {
   noStroke();
   
   fill(255);
-  rect(width/5, height/1.25, width/1.6, 20, 35, 20);
+  rect(width/5, height/1.4, width/1.6, 20, 35, 20);
     
   fill(255, 0, 255);
-  rect(width/5, height/1.25, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
+  rect(width/5, height/1.4, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
     console.log(timer);
