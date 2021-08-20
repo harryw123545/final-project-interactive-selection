@@ -35,10 +35,6 @@ let fit;
 function fittestCreature(data){
     fit = data;
     
-//    for(let i = 0; i < clientCount; i++){
-//      console.log("clients: ", i);
-//    }
-    
     population.receiveFit(fit);
 //    console.log(population.fit);
 }
@@ -70,10 +66,9 @@ function setup() {
   //hide cursor from view
   noCursor();
     
-  let popmax = 6;
-  let mutationRate = 0.05 // A pretty high mutation rate here, our population is rather small we need to enforce variety
+
   // Create a population with a target phrase, mutation rate, and population max
-  population = new Population(mutationRate, popmax);
+  population = new Population(clientCount);
 
   textFont(font);    
     

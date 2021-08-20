@@ -82,7 +82,7 @@ function draw() {
   rect(width/5, height/1.4, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
-    console.log(timer);
+    //console.log(timer);
   //call next gen when server timer resets    
   if(timer == 0){
       nextGen();

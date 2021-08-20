@@ -10,11 +10,15 @@
 
 // Create the population
 class Population {
-  constructor(m, num) {
+  constructor(num) {
     
     //variable for received fitness array
     this.receive;
-      
+    this.receiveArray;
+    this.clientCount = num;    
+    this.dataArray = [];
+    this.population; // array to hold amount of clients
+
     this.glyph = new Glyphs(new DNA());
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
@@ -30,8 +34,23 @@ class Population {
     
   receiveFit(data) {
       this.receive = data;
-      this.fittest = new Fittest(this.receive, width/2, height/2);
-      this.glyph = new Glyphs(this.receive);
+      
+      this.dataArray.push(this.receive);
+      
+      this.population = clientCount-1;
+      
+      if(this.dataArray.length >= this.population){
+            console.log(this.dataArray);
+            console.log(this.population);
+          
+            let crossover = floor(random(this.dataArray.length));
+            this.fittest = new Fittest(this.dataArray[crossover], width/2, height/2);
+            this.glyph = new Glyphs(this.dataArray[crossover]);
+            
+            this.dataArray = [];
+        }
+      
+      
 
   }
 
