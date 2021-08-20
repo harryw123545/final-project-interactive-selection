@@ -43,13 +43,12 @@ class Population {
             console.log(this.dataArray);
             console.log(this.population);
           
-            let crossover = floor(random(this.dataArray.length));
+            let crossover = floor(random(0, this.dataArray.length));
             this.fittest = new Fittest(this.dataArray[crossover], width/2, height/2);
             this.glyph = new Glyphs(this.dataArray[crossover]);
             
             this.dataArray = [];
         }
-      
       
 
   }

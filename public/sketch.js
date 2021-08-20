@@ -23,13 +23,6 @@ let timer = 0;
 //connect to server
 const socket = io.connect('https://interactive-selection.herokuapp.com/');
 
-//create instance of hammer library
-var hammertime = new Hammer(myElement, myOptions);
-hammertime.on('pan', function(ev) {
-	console.log(ev);
-});
-
-
 function preload() {
   font = loadFont('Codex-Regular.otf')
 }
