@@ -14,6 +14,8 @@ let num = 65;
 var img; 
 let noiseIter = 0;
 
+let angle = 0;
+
 //variable for sound effects
 var newGenSound, newUser, dreaming;
 
@@ -26,6 +28,9 @@ let extraCanvas;
 //variable for generation counter
 let counter = 0;
 
+let testCounter = 0;
+
+
 //establish socket connection
 const socket = io.connect('https://interactive-selection.herokuapp.com/');
 
@@ -34,7 +39,8 @@ let fit;
 
 function fittestCreature(data){
     fit = data;
-    
+    testCounter++;
+    console.log(fit, testCounter);
     population.receiveFit(fit);
 //    console.log(population.fit);
 }
@@ -97,6 +103,34 @@ function draw() {
   stroke(255);
   strokeWeight(1);
   ellipse(width/5, height/2, 200, 200);
+    
+  //draw dotted circle outline
+  push();
+      translate(width/5, height/2);
+      stroke(255);
+      strokeWeight(2);
+      noFill();
+      for(let a = 0; a < TWO_PI; a+=0.1){
+          let r = 110;
+          let x = r * cos(a);
+          let y = r * sin(a);
+          point(x, y);
+      }
+  pop();
+     
+  //draw dotted circle outline
+  push();
+      //translate(width/5, height/2);
+      noStroke();
+      let circleCol = frameCount*0.01;
+      for(let a = 0; a < TWO_PI; a+=0.01){
+          fill(127 + 127 * sin(a * 0.4 + circleCol), 127 + 127 * sin(a * 0.1 + circleCol), 127 + 127 * sin(a * 0.01 + circleCol))
+          let r = 120;
+          let x = r * cos(a * 0.5 + time);
+          let y = r * sin(a * 0.5 + time);
+          ellipse(width/5 + x, height/2 + y, 3, 3);
+      }
+  pop();
 
   
   //statements for showing client bubbles on screen    
@@ -124,11 +158,19 @@ function draw() {
   //draw creature name    
   fill(255);
   noStroke();
-  textAlign(CENTER);
-  textSize(55);
+  textSize(65);
+  textAlign(LEFT);
     
   let word = char(num); // select random word
-  text(`generation: ${word}`, 260, 100);
+  text(`generation: ${word}`, width/13, height/6);
+    
+  //draw writing underneath    
+  fill(255);
+  noStroke();
+  textSize(20);
+    
+  let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
+  text(`${writing}`, width/13, height/4.8);
   
     
   //draw counter rectangles    

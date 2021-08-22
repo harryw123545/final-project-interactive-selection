@@ -40,8 +40,8 @@ class Population {
       this.population = clientCount-1;
       
       if(this.dataArray.length >= this.population){
-            console.log(this.dataArray);
-            console.log(this.population);
+//            console.log(this.dataArray);
+//            console.log(this.population);
           
             let crossover = floor(random(0, this.dataArray.length));
             this.fittest = new Fittest(this.dataArray[crossover], width/2, height/2);

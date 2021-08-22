@@ -8,6 +8,7 @@ var port = process.env.PORT || 3000;
 var server = app.listen(port);
 console.log(`starting server at ${port}`);
 
+
 app.use(express.static("projector"));
 app.use(express.static("public"));
 
@@ -24,6 +25,7 @@ var countdown = 0;
 var mod 
 var generation = 0;
 
+
 io.sockets.on('connection', (socket) => {
     console.log('new connection: ' + socket.id);
        
@@ -34,20 +36,20 @@ io.sockets.on('connection', (socket) => {
     //log when a user disconnects
     socket.on("disconnect", () => {
         io.emit('count', io.engine.clientsCount);
-        console.log("a user has disconnected")
+        console.log("a user has disconnected");
     });
 
     socket.on('timer', intervalTimer);
     
     function intervalTimer(counter){
-        //console.log(counter)
-        socket.broadcast.emit('timer', counter)
+        console.log(counter);
+        socket.broadcast.emit('timer', counter);
     }
     
     socket.on('fittest', fittestCreature);
     
     function fittestCreature(data){
-        console.log(data)
+        console.log(data);
         socket.broadcast.emit('fittest', data)
     }
     

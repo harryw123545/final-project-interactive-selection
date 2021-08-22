@@ -144,6 +144,7 @@ class Fittest {
     //draw alien description
     fill(255);
     textSize(40);  
+    textAlign(CENTER);
     noStroke();
     text(this.word, width / 2, height/1.25); // draw the word
     
