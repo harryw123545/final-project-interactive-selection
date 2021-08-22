@@ -75,6 +75,8 @@ function setup() {
 
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
+  
+  scan = new scanLine();
 
   textFont(font);    
     
@@ -95,6 +97,9 @@ function draw() {
     
   // Display the faces
   population.displayFittest();
+   
+  //display scan animation    
+  scan.display();
     
   //console.log(clientCount);
     

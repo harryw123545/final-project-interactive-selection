@@ -22,6 +22,8 @@ class Population {
     this.glyph = new Glyphs(new DNA());
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
+      
+    this.scan = new scanLine(this.col);
   
   }
     
