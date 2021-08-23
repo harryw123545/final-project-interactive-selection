@@ -158,7 +158,7 @@ function draw() {
 
   //send counter to server
   socket.emit('timer', counter);    
-    
+   
   
   //draw creature name    
   fill(255);

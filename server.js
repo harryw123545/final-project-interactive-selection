@@ -38,19 +38,16 @@ io.sockets.on('connection', (socket) => {
         io.emit('count', io.engine.clientsCount);
         console.log("a user has disconnected");
     });
-
-    socket.on('timer', intervalTimer);
     
-    function intervalTimer(counter){
+    socket.on('timer', (counter) => {
         console.log(counter);
-        socket.broadcast.emit('timer', counter);
-    }
+        io.emit('timer', counter);
+    });
     
-    socket.on('fittest', fittestCreature);
-    
-    function fittestCreature(data){
+    socket.on('fittest', (data) => {
         console.log(data);
-        socket.broadcast.emit('fittest', data)
-    }
+        io.emit('fittest', data);
+    });
+
     
 });
