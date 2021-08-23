@@ -34,8 +34,26 @@ let testCounter = 0;
 //establish socket connection
 const socket = io.connect('localhost:3000');
 
+//get dna array from server
+socket.on('fittest', fittestCreature);
+
+//log changes in timer and generation from server
+socket.on('timer', data => {
+    timer = data;
+}); 
+
+socket.on('count', count => {
+        clientCount = count;
+        //console.log(clientCount);
+});
+
 //variable for data taken from server
 let fit;
+
+//variable for timer data
+let timer;
+let timerBool = true;
+
 
 function fittestCreature(data){
     fit = data;
@@ -45,13 +63,7 @@ function fittestCreature(data){
 //    console.log(population.fit);
 }
 
- //get dna array from server
-    socket.on('fittest', fittestCreature);
 
-    socket.on('count', count => {
-            clientCount = count;
-            //console.log(clientCount);
-        });
 
 function preload() {
   newGenSound = loadSound('sounds/newGen.MP3');
@@ -100,9 +112,7 @@ function draw() {
    
   //display scan animation    
   scan.display();
-    
-  //console.log(clientCount);
-    
+        
   //draw bounding circle    
   noFill();
   stroke(255);
@@ -152,13 +162,6 @@ function draw() {
         clientBubble[i].display();
   }
     
-    
-  //create counter - send to server
-  counter = frameCount % 240;
-
-  //send counter to server
-  socket.emit('timer', counter);    
-   
   
   //draw creature name    
   fill(255);
@@ -185,15 +188,17 @@ function draw() {
   rect(width/3.3, height/1.08, 500, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/3.3, height/1.08, map(counter, 0, 240, 0, 500), 20, 20, 20);
+  rect(width/3.3, height/1.08, map(timer, 0, 5, 0, 500), 20, 20, 20);
       
   //extablish time variable for shapes    
   time = frameCount*0.015;
     
-  //call next gen when counter resets
-  if(counter == 0){
-      //send fittest array to nextGen
+  //call next gen when server timer resets    
+  if(timer == 0 && timerBool == true){
       nextGen();
+      timerBool = false;   
+  } else if(timer > 0){
+      timerBool = true;
   }
     
 }

@@ -19,21 +19,26 @@ let ph = 3;
 let bugCounter = 0;
 
 //variables from server
-let timer = 0;
+let timer;
+let timerBool = true;
+
+let nextChange = 0;
+
 
 //connect to server
 const socket = io.connect('localhost:3000');
+
+//log changes in timer and generation from server
+socket.on('timer', data => {
+        timer = data;
+}); 
 
 function preload() {
   font = loadFont('Codex-Regular.otf')
 }
 
 function setup() {
-    createCanvas(displayWidth, displayHeight);
-        
-    //log changes in timer and generation from server
-    socket.on('timer', intervalTimer); 
-       
+    createCanvas(displayWidth, displayHeight);    
     
     //change variables if screen is resized
     if(width < height){
@@ -51,10 +56,6 @@ function setup() {
     
 }
 
-function intervalTimer(data){
-    //console.log("timer: ", data);
-    timer = data;
-}
 
 function draw() {
   background(10);
@@ -64,7 +65,6 @@ function draw() {
   fill(255);
   textAlign(CENTER);
   textSize(60);
-      
     
   //draw counter rectangles    
   noStroke();
@@ -73,13 +73,19 @@ function draw() {
   rect(width/5, height/1.4, width/1.6, 20, 35, 20);
     
   fill(255, 0, 255);
-  rect(width/5, height/1.4, map(timer, 0, 240, 0, width/1.6), 20, 35, 20);
+  rect(width/5, height/1.4, map(timer, 0, 5, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
-  console.log(timer);
+  //console.log(timer);
+    
+  //console.log(timerBool);
+    
   //call next gen when server timer resets    
-  if(timer == 0){
+  if(timer == 0 && timerBool == true){
       nextGen();
+      timerBool = false;   
+  } else if(timer > 0){
+      timerBool = true;
   }
     
 }
@@ -89,7 +95,6 @@ function nextGen() {
   population.selection();
   population.reproduction();
   console.log("pop reset", bugCounter);
-
   bugCounter++;
     
   //print fittest array     

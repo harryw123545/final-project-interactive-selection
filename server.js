@@ -39,12 +39,11 @@ io.sockets.on('connection', (socket) => {
         console.log("a user has disconnected");
     });
     
-    socket.on('timer', (counter) => {
-        //console.log(counter);
-//        countdown++;
-//        console.log(countdown);
-        io.emit('timer', counter);
-    });
+    
+    
+//    socket.on('timer', (counter) => {
+//        io.emit('timer', counter);
+//    });
     
     socket.on('fittest', (data) => {
         console.log(data);
@@ -53,3 +52,18 @@ io.sockets.on('connection', (socket) => {
 
     
 });
+
+setInterval(() => {
+        countdown++;
+        
+        let interTimer = countdown % 6;
+        console.log(interTimer);
+    
+        if(interTimer == 0){
+            console.log('countdown reset');
+        }
+    
+    
+        io.emit('timer', interTimer);
+        //console.log(countdown)
+    }, 1000);
