@@ -3,8 +3,8 @@
 let express = require('express');
 let app = express();
 
+var port = 3000;
 //var port = process.env.PORT || 3000;
-var port = process.env.PORT || 3000;
 var server = app.listen(port);
 console.log(`starting server at ${port}`);
 
@@ -40,7 +40,9 @@ io.sockets.on('connection', (socket) => {
     });
     
     socket.on('timer', (counter) => {
-        console.log(counter);
+        //console.log(counter);
+//        countdown++;
+//        console.log(countdown);
         io.emit('timer', counter);
     });
     

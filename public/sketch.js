@@ -22,7 +22,7 @@ let bugCounter = 0;
 let timer = 0;
 
 //connect to server
-const socket = io.connect('https://interactive-selection.herokuapp.com/');
+const socket = io.connect('localhost:3000');
 
 function preload() {
   font = loadFont('Codex-Regular.otf')

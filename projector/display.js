@@ -32,7 +32,7 @@ let testCounter = 0;
 
 
 //establish socket connection
-const socket = io.connect('https://interactive-selection.herokuapp.com/');
+const socket = io.connect('localhost:3000');
 
 //variable for data taken from server
 let fit;
