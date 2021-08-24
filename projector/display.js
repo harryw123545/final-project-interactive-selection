@@ -38,6 +38,12 @@ let timer;
 let timerBool = true;
 let smoothed;
 
+let easing = 0.1;
+let target = 800;
+let start = 0;
+let timerX = 1;
+//let timerY = 800;
+
 //establish socket connection
 const socket = io.connect('https://codex-live.ngrok.io');
 
@@ -70,7 +76,7 @@ function preload() {
   newUser = loadSound('sounds/newUser.MP3');
   dreaming = loadSound('sounds/dreaming.MP3');
   font = loadFont('Codex-Regular.otf');
-  img = loadImage('background-terminal.png');
+  img = loadImage('background-terminal-new.png');
 
 }
 
@@ -79,13 +85,13 @@ function setup() {
   //canvas.parent('canvas-container');
 
   extraCanvas = createGraphics(80, width/4);
-  extraCanvas.background(10);
+  extraCanvas.background(0);
 
   //hide cursor from view
   noCursor();
     
   smoothed = 0;
-    
+        
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
   
@@ -101,7 +107,7 @@ function setup() {
 
 function draw() {
     
-  background(10);
+  background(0);
 
 
   //draw background image    
@@ -134,32 +140,39 @@ function draw() {
   //draw creature name    
   fill(255);
   noStroke();
-  textSize(65);
+  textSize(105);
   textAlign(LEFT);
     
   let word = char(num); // select random word
-  text(`generation: ${word}`, width/13, height/6);
+  text(`generation: ${word}`, width/13, height/6.5);
     
   //draw writing underneath    
   fill(255);
   noStroke();
-  textSize(20);
+  textSize(38);
     
   let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
   text(`${writing}`, width/13, height/4.8);
 
-  smoothed = lerp(0, timer, 0.1);
-  console.log(smoothed);
+//  smoothed = lerp(smoothed, timer, 0.1);
+  console.log(timer);
 
+  let targetX = 800;
 
+  let dx = targetX - timerX;
+  timerX += dx * easing;
+
+  //timerX = map(timer, 0, 7, 0, 800) - timerX * easing;
+    
+    
   //draw counter rectangles    
   noStroke();
   
   fill(255);
-  rect(width/2-250, height/1.08, 500, 20, 20, 20);
+  rect(width/2-400, height/1.1, 800, 20, 20, 20);
     
   fill(255, 0, 255);
-  rect(width/2-250, height/1.08, smoothed*100, 20, 20, 20);
+  rect(width/2-400, height/1.1, map(timer, 0, 7, 0, 800), 20, 20, 20);
       
   //extablish time variable for shapes    
   time = frameCount*0.015;
@@ -180,10 +193,10 @@ function keyPressed() {
     let fs = fullscreen();
     if (keyCode === ENTER) {
         fullscreen(!fs);
-//        newGenSound.play();
-//        newUser.play();
-//        dreaming.play();
-//        dreaming.loop();
+        newGenSound.play();
+        newUser.play();
+        dreaming.play();
+        dreaming.loop();
     }
   }
 
@@ -192,7 +205,7 @@ function boundingCircle() {
   noFill();
   stroke(255);
   strokeWeight(1);
-  ellipse(width/5, height/2, 200, 200);
+  ellipse(width/5, height/2, 300, 300);
     
   //draw dotted circle outline
   push();
@@ -201,21 +214,21 @@ function boundingCircle() {
       strokeWeight(2);
       noFill();
       for(let a = 0; a < TWO_PI; a+=0.1){
-          let r = 110;
+          let r = 160;
           let x = r * cos(a);
           let y = r * sin(a);
           point(x, y);
       }
   pop();
      
-  //draw dotted circle outline
+  //draw moving circle outline
   push();
       //translate(width/5, height/2);
       noStroke();
       let circleCol = frameCount*0.01;
       for(let a = 0; a < TWO_PI; a+=0.01){
           fill(127 + 127 * sin(a * 0.4 + circleCol), 127 + 127 * sin(a * 0.1 + circleCol), 127 + 127 * sin(a * 0.01 + circleCol))
-          let r = 120;
+          let r = 170;
           let x = r * cos(a * 0.5 + time);
           let y = r * sin(a * 0.5 + time);
           ellipse(width/5 + x, height/2 + y, 3, 3);
@@ -228,9 +241,9 @@ function boundingCircle() {
 function nextGen() {
   //console.log("new population");
   //saveCanvas('myCanvas', 'png');
-//  newGenSound.play();
-  num++;
-  num%85;
+  newGenSound.play();
+  num = random(65, 80);
+  //num%70;
 }
 
 function windowResized() {

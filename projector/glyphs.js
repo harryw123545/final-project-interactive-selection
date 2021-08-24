@@ -20,7 +20,7 @@ class Glyphs {
           push();
       
           // move to the current location in the grid
-          translate(width/1.262, height/1.95);
+          translate(width/1.25, height/1.95);
 
               noFill()
               stroke(255);
@@ -48,7 +48,7 @@ class Glyphs {
       let x1 = parseInt(d / size) * tw;
 
       push();
-      translate(width/1.481, height/1.5);
+      translate(width/2+width/5.5, height/1.5);
       //console.log(c);
       textSize(15);
       text(String.fromCharCode(c), x1, y1);

@@ -21,7 +21,7 @@ class clientShape {
   }
     
   move(){
-      if(this.d > 100 - this.size/2){
+      if(this.d > 150 - this.size/2){
           this.speedX *= -1;
           this.speedY *= -1;
       }

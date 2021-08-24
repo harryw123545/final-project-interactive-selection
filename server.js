@@ -52,11 +52,11 @@ setInterval(() => {
         countdown++;
         
         let interTimer = countdown % 8;
-        //console.log(interTimer);
+        console.log(interTimer);
     
-//        if(interTimer == 0){
-//            console.log('countdown reset');
-//        }
+        if(interTimer == 0){
+            console.log('countdown reset');
+        }
     
     
         io.emit('timer', interTimer);
