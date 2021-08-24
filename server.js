@@ -40,11 +40,6 @@ io.sockets.on('connection', (socket) => {
     });
     
     
-    
-//    socket.on('timer', (counter) => {
-//        io.emit('timer', counter);
-//    });
-    
     socket.on('fittest', (data) => {
         console.log(data);
         io.emit('fittest', data);
@@ -56,12 +51,12 @@ io.sockets.on('connection', (socket) => {
 setInterval(() => {
         countdown++;
         
-        let interTimer = countdown % 6;
-        console.log(interTimer);
+        let interTimer = countdown % 8;
+        //console.log(interTimer);
     
-        if(interTimer == 0){
-            console.log('countdown reset');
-        }
+//        if(interTimer == 0){
+//            console.log('countdown reset');
+//        }
     
     
         io.emit('timer', interTimer);

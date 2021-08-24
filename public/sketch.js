@@ -22,11 +22,14 @@ let bugCounter = 0;
 let timer;
 let timerBool = true;
 
+//variable for smooted timer data
+let smoothed = 0;
+
 let nextChange = 0;
 
 
 //connect to server
-const socket = io.connect('localhost:3000');
+const socket = io.connect('https://codex-live.ngrok.io');
 
 //log changes in timer and generation from server
 socket.on('timer', data => {
@@ -73,7 +76,7 @@ function draw() {
   rect(width/5, height/1.4, width/1.6, 20, 35, 20);
     
   fill(255, 0, 255);
-  rect(width/5, height/1.4, map(timer, 0, 5, 0, width/1.6), 20, 35, 20);
+  rect(width/5, height/1.4, map(smoothed = lerp(smoothed, timer, width/1.6)), 20, 35, 20);
     
   time = frameCount*0.015;
   //console.log(timer);

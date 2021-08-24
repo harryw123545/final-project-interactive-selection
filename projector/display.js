@@ -30,9 +30,16 @@ let counter = 0;
 
 let testCounter = 0;
 
+//variable for data taken from server
+let fit;
+
+//variable for timer data
+let timer;
+let timerBool = true;
+let smoothed;
 
 //establish socket connection
-const socket = io.connect('localhost:3000');
+const socket = io.connect('https://codex-live.ngrok.io');
 
 //get dna array from server
 socket.on('fittest', fittestCreature);
@@ -46,13 +53,6 @@ socket.on('count', count => {
         clientCount = count;
         //console.log(clientCount);
 });
-
-//variable for data taken from server
-let fit;
-
-//variable for timer data
-let timer;
-let timerBool = true;
 
 
 function fittestCreature(data){
@@ -84,7 +84,8 @@ function setup() {
   //hide cursor from view
   noCursor();
     
-
+  smoothed = 0;
+    
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
   
@@ -113,7 +114,81 @@ function draw() {
   //display scan animation    
   scan.display();
         
-  //draw bounding circle    
+  boundingCircle();
+  
+  //statements for showing client bubbles on screen    
+  if(clientCount < clientBubble.length){
+        clientBubble.splice(0, 1);
+  } 
+  else if(clientCount > clientBubble.length){
+      clientBubble.push(new clientShape());
+      newUser.play();
+  }
+    
+  for (let i = 1; i < clientBubble.length; i++) {
+        clientBubble[i].move();
+        clientBubble[i].display();
+  }
+    
+  
+  //draw creature name    
+  fill(255);
+  noStroke();
+  textSize(65);
+  textAlign(LEFT);
+    
+  let word = char(num); // select random word
+  text(`generation: ${word}`, width/13, height/6);
+    
+  //draw writing underneath    
+  fill(255);
+  noStroke();
+  textSize(20);
+    
+  let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
+  text(`${writing}`, width/13, height/4.8);
+
+  smoothed = lerp(0, timer, 0.1);
+  console.log(smoothed);
+
+
+  //draw counter rectangles    
+  noStroke();
+  
+  fill(255);
+  rect(width/2-250, height/1.08, 500, 20, 20, 20);
+    
+  fill(255, 0, 255);
+  rect(width/2-250, height/1.08, smoothed*100, 20, 20, 20);
+      
+  //extablish time variable for shapes    
+  time = frameCount*0.015;
+    
+  
+  //call next gen when server timer resets    
+  if(timer == 0 && timerBool == true){
+      nextGen();
+      timerBool = false;   
+  } else if(timer > 0){
+      timerBool = true;
+  }
+    
+}
+
+
+function keyPressed() {
+    let fs = fullscreen();
+    if (keyCode === ENTER) {
+        fullscreen(!fs);
+//        newGenSound.play();
+//        newUser.play();
+//        dreaming.play();
+//        dreaming.loop();
+    }
+  }
+
+function boundingCircle() {
+    //draw bounding circle    
   noFill();
   stroke(255);
   strokeWeight(1);
@@ -147,79 +222,13 @@ function draw() {
       }
   pop();
 
-  
-  //statements for showing client bubbles on screen    
-  if(clientCount < clientBubble.length){
-        clientBubble.splice(0, 1);
-  } 
-  else if(clientCount > clientBubble.length){
-      clientBubble.push(new clientShape());
-      newUser.play();
-  }
-    
-  for (let i = 1; i < clientBubble.length; i++) {
-        clientBubble[i].move();
-        clientBubble[i].display();
-  }
-    
-  
-  //draw creature name    
-  fill(255);
-  noStroke();
-  textSize(65);
-  textAlign(LEFT);
-    
-  let word = char(num); // select random word
-  text(`generation: ${word}`, width/13, height/6);
-    
-  //draw writing underneath    
-  fill(255);
-  noStroke();
-  textSize(20);
-    
-  let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
-  text(`${writing}`, width/13, height/4.8);
-  
-    
-  //draw counter rectangles    
-  noStroke();
-  
-  fill(255);
-  rect(width/3.3, height/1.08, 500, 20, 20, 20);
-    
-  fill(255, 0, 255);
-  rect(width/3.3, height/1.08, map(timer, 0, 5, 0, 500), 20, 20, 20);
-      
-  //extablish time variable for shapes    
-  time = frameCount*0.015;
-    
-  //call next gen when server timer resets    
-  if(timer == 0 && timerBool == true){
-      nextGen();
-      timerBool = false;   
-  } else if(timer > 0){
-      timerBool = true;
-  }
-    
 }
-
-
-function keyPressed() {
-    let fs = fullscreen();
-    if (keyCode === ENTER) {
-        fullscreen(!fs);
-        newGenSound.play();
-        newUser.play();
-        dreaming.play();
-        dreaming.loop();
-    }
-  }
 
 // If the timer resets, evolve next generation
 function nextGen() {
   //console.log("new population");
   //saveCanvas('myCanvas', 'png');
-  newGenSound.play();
+//  newGenSound.play();
   num++;
   num%85;
 }
