@@ -64,7 +64,7 @@ socket.on('count', count => {
 function fittestCreature(data){
     fit = data;
     testCounter++;
-    console.log(fit, testCounter);
+    //console.log(fit, testCounter);
     population.receiveFit(fit);
 //    console.log(population.fit);
 }
@@ -140,7 +140,7 @@ function draw() {
   //draw creature name    
   fill(255);
   noStroke();
-  textSize(105);
+  textSize(95);
   textAlign(LEFT);
     
   let word = char(num); // select random word
@@ -155,7 +155,7 @@ function draw() {
   text(`${writing}`, width/13, height/4.8);
 
 //  smoothed = lerp(smoothed, timer, 0.1);
-  console.log(timer);
+  //console.log(timer);
 
   let targetX = 800;
 

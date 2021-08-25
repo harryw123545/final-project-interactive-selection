@@ -21,6 +21,8 @@ class Population {
 
     this.glyph = new Glyphs(new DNA());
       
+    this.genes = new DNA();
+      
     this.fittest = new Fittest(new DNA(), width/2, height/2);
       
   
@@ -33,6 +35,7 @@ class Population {
 
   }
     
+
   receiveFit(data) {
       this.receive = data;
       
@@ -41,12 +44,42 @@ class Population {
       this.population = clientCount-1;
       
       if(this.dataArray.length >= this.population){
-//            console.log(this.dataArray);
-//            console.log(this.population);
           
-            let crossover = floor(random(0, this.dataArray.length));
-            this.fittest = new Fittest(this.dataArray[crossover], width/2, height/2);
-            this.glyph = new Glyphs(this.dataArray[crossover]);
+//          let child = new DNA();
+//          let d = this.dataArray[floor(random(0, this.dataArray.length))];
+//          let m = this.dataArray[floor(random(0, this.dataArray.length))];
+//          
+//          console.log('Checking main');
+//          console.log(d);
+//          console.log(m);
+//          
+//          
+//          // this might work
+//          let nd = new DNA(d.genes);
+//          let nm = new DNA(m.genes);
+//          let combined = nd.crossover(nm); // this is your combined dna
+//          console.log(combined);
+//          console.log('Finished');
+          
+
+          // if you want to mix them all 
+          
+          let i = 0;
+          let start = new DNA(this.dataArray[0].genes);
+          for (let dna of this.dataArray) {
+            if (i!=0) {
+                let current = new DNA(this.dataArray[i].genes);
+                start = start.crossover(current);
+            }
+            
+            i+=1;
+          }
+          
+          // in theory start now is an amalgamation of all of them
+          
+
+            this.fittest = new Fittest(start, width/2, height/2);
+            this.glyph = new Glyphs(start);
             
             this.dataArray = [];
         }
