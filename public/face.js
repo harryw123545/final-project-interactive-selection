@@ -99,10 +99,10 @@ class Face {
 
       //level of detail in shapes    
       var total = 80;
-      var increment = 2*PI / total;
+      var increment = TWO_PI / total;
 
       beginShape();
-        for(var angle = 0; angle <= 2*PI; angle += increment){
+        for(var angle = 0; angle <= TWO_PI; angle += increment){
             fill(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
             var rad = superShape(angle);
             
@@ -113,7 +113,7 @@ class Face {
 
             curveVertex(x, y);
         }
-      endShape();
+      endShape(CLOSE);
 
       //recursively draw shapes
       if(radius > 0.3) {

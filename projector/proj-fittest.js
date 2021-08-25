@@ -86,22 +86,37 @@ class Fittest {
       var increment = TWO_PI / total;
         
       beginShape();
+        
+        var rad = superShape(-1);
+            let offset = map(noise(-1 * 0.3 + frameCount * speed), -1, 1, 0, 1);
+            var x = r * rad * offset * cos(-1);
+            var y = r * rad * offset * sin(-1);
+        
         for(var angle = 0; angle <= TWO_PI; angle += increment){
             
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
-            strokeWeight(0.2);
-            
+            noStroke();
             c = color(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
-            
             fill(c);
-            
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
 
             curveVertex(x, y);
         }
+               
+            rad = superShape(0);
+            offset = map(noise(0 * 0.3 + frameCount * speed), -1, 1, 0, 1);
+            x = r * rad * offset * cos(0);
+            y = r * rad * offset * sin(0);
+        
+            //rad = superShape(1);
+            //offset = map(noise(1 * 0.3 + frameCount * speed), -1, 1, 0, 1);
+            //x = r * rad * offset * cos(1);
+            //y = r * rad * offset * sin(1);
+
+            curveVertex(x, y);
       endShape(CLOSE);
 
       //recursively draw shapes
