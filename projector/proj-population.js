@@ -42,7 +42,14 @@ class Population {
       this.dataArray.push(this.receive);
       
       this.population = clientCount-1;
-      
+//      console.log("population: ", this.population);
+//      console.log("dataArray: ", this.dataArray.length);
+//      
+//      if(this.dataArray.length == 1){
+//          this.fittest = new Fittest(this.receive, width/2, height/2);
+//          this.glyph = new Glyphs(this.receive);
+//          this.dataArray = [];
+//      }
       if(this.dataArray.length >= this.population){
           
 //          let child = new DNA();
@@ -62,6 +69,7 @@ class Population {
 //          console.log('Finished');
           
 
+          console.log("received");
           // if you want to mix them all 
           
           let i = 0;
@@ -82,9 +90,8 @@ class Population {
             this.glyph = new Glyphs(start);
             
             this.dataArray = [];
-        }
-      
-
+        } 
+    
   }
 
 

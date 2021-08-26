@@ -11,6 +11,7 @@ console.log(`starting server at ${port}`);
 
 app.use(express.static("projector"));
 app.use(express.static("public"));
+app.use(express.static("databank"));
 
 
 ////////////
@@ -43,6 +44,11 @@ io.sockets.on('connection', (socket) => {
     socket.on('fittest', (data) => {
         console.log(data);
         io.emit('fittest', data);
+    });
+    
+    socket.on('img64', (data) => {
+        console.log(data);
+        io.emit('img64', data);
     });
 
     

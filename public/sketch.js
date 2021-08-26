@@ -100,12 +100,18 @@ function nextGen() {
   console.log("pop reset", bugCounter);
   bugCounter++;
     
-  //print fittest array     
-  var fittestCreature = population.returnFit()
-  //console.log("bug test: ", fittestCreature, bugCounter);
+//  var fitnessCount = population.returnScore();
+//  console.log(fitnessCount);
     
-  //send fittest array to server
-  socket.emit('fittest', fittestCreature);
+  //if(fitnessCount > 1){
+      //only send values to server if shapes are selected
+      //print fittest array     
+      var fittestCreature = population.returnFit();
+      console.log("values sent");
+      //send fittest array to server
+      socket.emit('fittest', fittestCreature); 
+  //}
+  
 
 }
 

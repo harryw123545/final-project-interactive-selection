@@ -44,6 +44,7 @@ let start = 0;
 let timerX = 1;
 //let timerY = 800;
 
+
 //establish socket connection
 const socket = io.connect('https://codex-live.ngrok.io');
 
@@ -243,7 +244,9 @@ function nextGen() {
   //saveCanvas('myCanvas', 'png');
   newGenSound.play();
   num = random(65, 80);
-  //num%70;
+  const img64 = canvas.toDataURL();
+  socket.emit('img64', img64); 
+  console.log(img64);
 }
 
 function windowResized() {

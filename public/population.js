@@ -15,6 +15,7 @@ class Population {
     this.population = []; // array to hold the current population
     this.matingPool = [];
     this.generations = 0; // Number of generations
+    this.maxFitness;
       
     //define value for spacing
     this.spc = width/num; 
@@ -52,8 +53,13 @@ class Population {
   }
     
   returnFit(){
-      //function that returns fit array for sending to server
-      return this.fit;
+    //function that returns fit array for sending to server
+    return this.fit;
+  }
+    
+  returnScore(){
+    //returns fitness score
+    return this.maxFitness;
   }
 
   // Are we rolling over any of the faces?
@@ -69,14 +75,14 @@ class Population {
     this.matingPool = [];
 
     // Calculate total fitness of whole population
-    let maxFitness = this.getMaxFitness();
+    this.maxFitness = this.getMaxFitness();
 
     // Calculate fitness for each member of the population (scaled to value between 0 and 1)
     // Based on fitness, each member will get added to the mating pool a certain number of times
     // A higher fitness = more entries to mating pool = more likely to be picked as a parent
     // A lower fitness = fewer entries to mating pool = less likely to be picked as a parent
     for (let i = 0; i < this.population.length; i++) {
-      let fitnessNormal = map(this.population[i].getFitness(), 0, maxFitness, 0, 1);
+      let fitnessNormal = map(this.population[i].getFitness(), 0, this.maxFitness, 0, 1);
       let n = floor(fitnessNormal * 100); // Arbitrary multiplier
 
       for (let j = 0; j < n; j++) {

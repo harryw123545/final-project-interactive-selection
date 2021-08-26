@@ -40,7 +40,8 @@ class Fittest {
     var n1 = map(genes[1], 0, 1, 0.1, 1.5);
     var n2 = map(genes[2], 0, 1, 0.1, 1.5);
     var n3 = map(genes[3], 0, 1, 0.1, 1.5);
-    var m = map(genes[4], 0, 1, 5, 36);
+    var m = map(genes[4], 0, 1, 5, 66);
+    var mx = map(genes[10], 0, 1, 5, 46);
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
@@ -87,11 +88,6 @@ class Fittest {
         
       beginShape();
         
-        var rad = superShape(-1);
-            let offset = map(noise(-1 * 0.3 + frameCount * speed), -1, 1, 0, 1);
-            var x = r * rad * offset * cos(-1);
-            var y = r * rad * offset * sin(-1);
-        
         for(var angle = 0; angle <= TWO_PI; angle += increment){
             
             var rad = superShape(angle);
@@ -103,20 +99,9 @@ class Fittest {
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
 
-            curveVertex(x, y);
+            curveVertex(x+1, y);
         }
                
-            rad = superShape(0);
-            offset = map(noise(0 * 0.3 + frameCount * speed), -1, 1, 0, 1);
-            x = r * rad * offset * cos(0);
-            y = r * rad * offset * sin(0);
-        
-            //rad = superShape(1);
-            //offset = map(noise(1 * 0.3 + frameCount * speed), -1, 1, 0, 1);
-            //x = r * rad * offset * cos(1);
-            //y = r * rad * offset * sin(1);
-
-            curveVertex(x, y);
       endShape(CLOSE);
 
       //recursively draw shapes
