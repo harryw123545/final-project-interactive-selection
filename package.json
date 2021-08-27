@@ -23,6 +23,7 @@
   "homepage": "https://github.com/harryw123545/final-project-interactive-selection#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "progressbar.js": "^1.1.0",
     "socketio": "^1.0.0"
   }
 }

@@ -41,7 +41,7 @@ class Population {
       
       this.dataArray.push(this.receive);
       
-      this.population = clientCount-2;
+      this.population = clientCount-1;
 //      console.log("population: ", this.population);
 //      console.log("dataArray: ", this.dataArray.length);
 //      

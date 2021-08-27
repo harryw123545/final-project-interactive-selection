@@ -1,25 +1,10 @@
 html, body {
   margin: 0;
   padding: 0; 
-  background-color: black;
-  display: flex;
-  flex-wrap: wrap;
-    
-/*
-  display: grid;
-  grid-template-columns: 1fr, 1fr, 1fr;
-  justify-content: center;
-  grid-gap: 1em;
-*/
-    
-  justify-content: space-evenly;
-  justify-items: center;
-  align-content: space-evenly;
-  align-items: center;
+  Overflow-y:scroll;
+  background-color: coral;
+
 }
 canvas {
-/*
-  display: grid;
-  grid-auto-flow: column dense;
-*/
+  display: block;
 }

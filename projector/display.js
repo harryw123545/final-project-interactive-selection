@@ -5,6 +5,7 @@
 // Interactive Selection
 // http://www.genarts.com/karl/papers/siggraph91.html
 
+
 var osc;
 let time;
 let spc;
@@ -42,7 +43,6 @@ let easing = 0.1;
 let target = 800;
 let start = 0;
 let timerX = 1;
-//let timerY = 800;
 
 
 //establish socket connection
@@ -110,7 +110,6 @@ function draw() {
     
   background(0);
 
-
   //draw background image    
   imageMode(CORNER);
   image(img, 20, 20, width-50, height-90);
@@ -132,7 +131,7 @@ function draw() {
       newUser.play();
   }
     
-  for (let i = 2; i < clientBubble.length; i++) {
+  for (let i = 1; i < clientBubble.length; i++) {
         clientBubble[i].move();
         clientBubble[i].display();
   }

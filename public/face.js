@@ -26,6 +26,7 @@ class Face {
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.osc = 0;
+    this.angleShape = 0;
       
     //values for fitness score
     this.col = [255, 0, 255];
@@ -61,6 +62,9 @@ class Face {
     let add = map(genes[8], 0, 1, 0.0001, 0.001);
     var speed = map(genes[9], 0, 1, 0.001, 0.03);
 
+    var rotateSpeed = map(genes[10], 0, 1, 0.001, 0.01); 
+    this.angleShape += rotateSpeed;
+      
     //define noise
     let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
     osc += add;
@@ -69,6 +73,10 @@ class Face {
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
     push();
     translate(this.x, this.y);
+      
+    push();
+    rotate(noise(this.angleShape));
+
     drawShapes(size);  
 
     function drawShapes(radius){
@@ -123,8 +131,9 @@ class Face {
         pop();
     }
 
+      pop();
 //    textSize(30);  
-//    //text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
+//    text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
 //    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
       
       
