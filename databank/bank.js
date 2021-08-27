@@ -9,8 +9,9 @@ var raw;
 socket.on('img64', data => {
     raw = data;
     img = createImg(raw, () => {
-    img.size(300, AUTO);
-    img.style('padding', '15px');
+    img.size(400, AUTO);
+//    img.style('padding', '15px');
+//    img.style('float', 'left');
 //    /img.position('fixed');
   });
     console.log(raw);
@@ -19,6 +20,6 @@ socket.on('img64', data => {
 
 
 function setup() {
-    
+    window.scrollTo(0, document.body.scrollHeight);
 }
 

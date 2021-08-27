@@ -132,7 +132,7 @@ function draw() {
       newUser.play();
   }
     
-  for (let i = 1; i < clientBubble.length; i++) {
+  for (let i = 2; i < clientBubble.length; i++) {
         clientBubble[i].move();
         clientBubble[i].display();
   }

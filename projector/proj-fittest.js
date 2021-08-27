@@ -48,7 +48,8 @@ class Fittest {
     let add = map(genes[6], 0, 1, 0.0005, 0.004);
     var speed = map(genes[9], 0, 1, 0.001, 0.03);
       
-
+    let offset = map(noise(0.3 + frameCount * speed), -1, 1, 0, 1);
+     // let offset = 1;
     osc += add;
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
@@ -79,12 +80,119 @@ class Fittest {
       
       push();
         
-      noStroke();    
       scale(radius);
-
-      //level of detail in shapes    
+//        
+//        stroke(255);
+//        strokeWeight(1);
+//        noFill();
+        
+//      //level of detail in shapes    
       var total = 80;
       var increment = TWO_PI / total;
+//        
+//        angle_start = 0;
+//
+//        var angle_pre = TWO_PI - increment;
+//        var angle_end = angle_start + increment;
+//        var angle_post = angle_start + 2 * increment;
+//
+//        var rad_start = superShape(angle_start);
+//        var rad_pre = superShape(angle_pre);
+//        var rad_end = superShape(angle_end);
+//        var rad_post = superShape(angle_post);
+//
+//        var x_pre = r * rad_pre * offset * cos(angle_pre);
+//        var x_start = r * rad_start * offset * cos(angle_start);
+//        var x_end = r * rad_end * offset * cos(angle_end);
+//        var x_post = r * rad_post * offset * cos(angle_post);
+//
+//        var y_pre = r * rad_pre * offset * sin(angle_pre);
+//        var y_start = r * rad_start * offset * sin(angle_start);
+//        var y_end = r * rad_end * offset * sin(angle_end);
+//        var y_post = r * rad_post * offset * sin(angle_post);
+//        curve(x_pre, y_pre, x_start, y_start, x_end, y_end, x_post, y_post);
+//
+//
+//
+//        for(var angle_start = 0; angle_start < TWO_PI - 2 * increment; angle_start += increment){  
+//
+//        var angle_pre = angle_start - increment;
+//        var angle_end = angle_start + increment;
+//        var angle_post = angle_start + 2 * increment;
+//
+//        var rad_start = superShape(angle_start);
+//        var rad_pre = superShape(angle_pre);
+//        var rad_end = superShape(angle_end);
+//        var rad_post = superShape(angle_post);
+//
+//        //let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
+//        
+//
+//
+//        var x_pre = r * rad_pre * offset * cos(angle_pre);
+//        var x_start = r * rad_start * offset * cos(angle_start);
+//        var x_end = r * rad_end * offset * cos(angle_end);
+//        var x_post = r * rad_post * offset * cos(angle_post);
+//
+//        var y_pre = r * rad_pre * offset * sin(angle_pre);
+//        var y_start = r * rad_start * offset * sin(angle_start);
+//        var y_end = r * rad_end * offset * sin(angle_end);
+//        var y_post = r * rad_post * offset * sin(angle_post);
+//
+//        curve(x_pre, y_pre, x_start, y_start, x_end, y_end, x_post, y_post);
+//
+//        }
+//
+//        angle_start = TWO_PI - 2 * increment;
+//
+//        var angle_pre = angle_start - increment;
+//        var angle_end = angle_start + increment;
+//        var angle_post = 0;
+//
+//        var rad_start = superShape(angle_start);
+//        var rad_pre = superShape(angle_pre);
+//        var rad_end = superShape(angle_end);
+//        var rad_post = superShape(angle_post);
+//
+//        var x_pre = r * rad_pre * offset * cos(angle_pre);
+//        var x_start = r * rad_start * offset * cos(angle_start);
+//        var x_end = r * rad_end * offset * cos(angle_end);
+//        var x_post = r * rad_post * offset * cos(angle_post);
+//
+//        var y_pre = r * rad_pre * offset * sin(angle_pre);
+//        var y_start = r * rad_start * offset * sin(angle_start);
+//        var y_end = r * rad_end * offset * sin(angle_end);
+//        var y_post = r * rad_post * offset * sin(angle_post);
+//        curve(x_pre, y_pre, x_start, y_start, x_end, y_end, x_post, y_post);
+//
+//
+//
+//
+//        angle_start = TWO_PI - increment;
+//
+//        var angle_pre = angle_start - increment;
+//        var angle_end = 0;
+//        var angle_post = increment;
+//
+//        var rad_start = superShape(angle_start);
+//        var rad_pre = superShape(angle_pre);
+//        var rad_end = superShape(angle_end);
+//        var rad_post = superShape(angle_post);
+//
+//        var x_pre = r * rad_pre * offset * cos(angle_pre);
+//        var x_start = r * rad_start * offset * cos(angle_start);
+//        var x_end = r * rad_end * offset * cos(angle_end);
+//        var x_post = r * rad_post * offset * cos(increment);
+//
+//        var y_pre = r * rad_pre * offset * sin(angle_pre);
+//        var y_start = r * rad_start * offset * sin(angle_start);
+//        var y_end = r * rad_end * offset * sin(angle_end);
+//        var y_post = r * rad_post * offset * sin(increment);
+//        curve(x_pre, y_pre, x_start, y_start, x_end, y_end, x_post, y_post);
+
+        
+        
+        
         
       beginShape();
         
@@ -93,13 +201,19 @@ class Fittest {
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
+            //let offset = 1;
             noStroke();
             c = color(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
             fill(c);
+            //stroke(255);
+//            strokeWeight(0.4);
+//            noFill();
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
+//            var x = r  * cos(angle);
+//            var y = r  * sin(angle);
 
-            curveVertex(x+1, y);
+            curveVertex(x, y);
         }
                
       endShape(CLOSE);
