@@ -246,7 +246,7 @@ function nextGen() {
   num = random(65, 80);
   const img64 = canvas.toDataURL();
   socket.emit('img64', img64); 
-  console.log(img64);
+  //console.log(img64);
 }
 
 function windowResized() {
