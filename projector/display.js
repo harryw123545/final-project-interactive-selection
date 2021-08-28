@@ -15,6 +15,7 @@ let num = 65;
 var img; 
 let noiseIter = 0;
 
+
 let angle = 0;
 
 //variable for sound effects
@@ -168,10 +169,14 @@ function draw() {
   //draw counter rectangles    
   noStroke();
   
-  fill(255);
-  rect(width/2-400, height/1.1, 800, 20, 20, 20);
+//  fill(255);
+  noFill();
+  stroke(255);
+  strokeWeight(2);
+  rect(width/2-400-1, height/1.1-1, 802, 22, 22, 20);
     
   fill(255, 0, 255);
+  noStroke();
   rect(width/2-400, height/1.1, map(timer, 0, 7, 0, 800), 20, 20, 20);
       
   //extablish time variable for shapes    

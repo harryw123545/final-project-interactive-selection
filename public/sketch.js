@@ -15,6 +15,7 @@ let words = [];
 let iter = 2;
 let pw = 2;
 let ph = 3;
+var zoff = 0;
 
 let bugCounter = 0;
 
@@ -72,10 +73,14 @@ function draw() {
   //draw counter rectangles    
   noStroke();
   
-  fill(255);
-  rect(width/5, height/1.4, width/1.6, 20, 35, 20);
+//  fill(255);
+  noFill();
+  stroke(255);
+  strokeWeight(2);
+  rect(width/5-1, height/1.4-1, width/1.6+2, 22, 37, 20);
     
   fill(255, 0, 255);
+  noStroke();
   rect(width/5, height/1.4, map(timer, 0, 7, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;

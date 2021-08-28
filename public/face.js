@@ -61,8 +61,8 @@ class Face {
     var b = 1;
     let add = map(genes[8], 0, 1, 0.0001, 0.001);
     var speed = map(genes[9], 0, 1, 0.001, 0.03);
-
-    var rotateSpeed = map(genes[10], 0, 1, 0.001, 0.01); 
+    var rotateSpeed = map(genes[10], 0, 1, 0.001, 0.006);   
+      
     this.angleShape += rotateSpeed;
       
     //define noise

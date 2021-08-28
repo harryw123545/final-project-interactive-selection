@@ -39,18 +39,21 @@ class Fittest {
     var n1 = map(genes[1], 0, 1, 0.1, 1.5);
     var n2 = map(genes[2], 0, 1, 0.1, 1.5);
     var n3 = map(genes[3], 0, 1, 0.1, 1.5);
-    var m = map(genes[4], 0, 1, 5, 66);
+    var m = map(genes[4], 0, 1, 5, 36);
+      
     var mx = map(genes[10], 0, 1, 5, 46);
     var iter = map(genes[5], 0, 1, 0, 180);
     var a = 1;
     var b = 1;
-    let add = map(genes[6], 0, 1, 0.0005, 0.004);
-    var speed = map(genes[9], 0, 1, 0.001, 0.03);
-    var rotateSpeed = map(genes[10], 0, 1, 0.01, 0.01);
+    let add = map(genes[6], 0, 1, 0.005, 0.04);
+    var speed = map(genes[9], 0, 1, 0.01, 0.03);
+    var rotateSpeed = map(genes[10], 0, 1, 0.001, 0.006);
+      
       
     this.angleShape += rotateSpeed;
+      
 
-    osc += add;
+    osc += 0.01;
 
     // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
     push();
@@ -79,7 +82,7 @@ class Fittest {
         }
         
       //speed of animation    
-      m = map(sin(osc), -1, 1, 0, 3) + iter;
+      m = map(sin(osc), -1, 1, 0, 1) + iter;
 
       push();
       scale(radius);
@@ -87,18 +90,21 @@ class Fittest {
       //level of detail in shapes    
       var total = 80;
       var increment = TWO_PI / total;
+      var radi = 0;
 
       beginShape();
         
-        for(var angle = 0; angle <= TWO_PI; angle += increment){
+        for(var angle = 0; angle < TWO_PI; angle += increment){
             
-            var rad = superShape(angle);
-
-            let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
-
+    
             noStroke();
             c = color(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
+            
             fill(c);
+            var rad = superShape(angle);
+            
+            let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
+
             var x = r * rad * offset * cos(angle);
             var y = r * rad * offset * sin(angle);
 
@@ -126,7 +132,7 @@ class Fittest {
     pop();
 
     //apply noise to y value of line
-    noiseIter += 0.015;
+    noiseIter += 0.01;
     let n = noise(noiseIter) * this.wh+this.y/2;
       
     //draw scan line
