@@ -14,6 +14,10 @@ class Population {
     
     //variable for received fitness array
     this.receive;
+      
+    //variable for selection bool
+//    this.selectionBool;
+      
     this.receiveArray;
     this.clientCount = num;    
     this.dataArray = [];
@@ -38,11 +42,12 @@ class Population {
 
   receiveFit(data) {
       this.receive = data;
+//      this.selectionBool = bool;
       
       this.dataArray.push(this.receive);
       
-      this.population = clientCount-1;
-//      console.log("population: ", this.population);
+      this.population = clientCount-2;
+      console.log("population: ", this.population);
 //      console.log("dataArray: ", this.dataArray.length);
 //      
 //      if(this.dataArray.length == 1){
@@ -68,8 +73,10 @@ class Population {
 //          console.log(combined);
 //          console.log('Finished');
           
+          //console.log(selectionBool);
 
           console.log("received");
+          console.log(this.dataArray);
           // if you want to mix them all 
           
           let i = 0;

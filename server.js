@@ -47,9 +47,14 @@ io.sockets.on('connection', (socket) => {
     });
     
     socket.on('img64', (data) => {
-        console.log(data);
+        //console.log(data);
         io.emit('img64', data);
     });
+    
+//    socket.on('bool', (data) => {
+//        console.log(data);
+//        io.emit('bool', data);
+//    });
 
     
 });
@@ -58,10 +63,10 @@ setInterval(() => {
         countdown++;
         
         let interTimer = countdown % 8;
-        console.log(interTimer);
+        //console.log(interTimer);
     
         if(interTimer == 0){
-            console.log('countdown reset');
+            //console.log('countdown reset');
         }
     
     

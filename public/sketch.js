@@ -16,6 +16,7 @@ let iter = 2;
 let pw = 2;
 let ph = 3;
 var zoff = 0;
+var selectionBool = false;
 
 let bugCounter = 0;
 
@@ -52,7 +53,7 @@ function setup() {
     }
     
   let popmax = 9;
-  let mutationRate = 0.3 // A pretty high mutation rate here, our population is rather small we need to enforce variety
+  let mutationRate = 0.1 // A pretty high mutation rate here, our population is rather small we need to enforce variety
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(mutationRate, popmax, pw, ph);
 
@@ -105,17 +106,25 @@ function nextGen() {
   console.log("pop reset", bugCounter);
   bugCounter++;
     
-//  var fitnessCount = population.returnScore();
+  //var fitnessCount = population.returnScore();
 //  console.log(fitnessCount);
     
-  //if(fitnessCount > 1){
-      //only send values to server if shapes are selected
+//  if(fitnessCount > 1){
+//      //only send bool to server if shapes are selected
+//      selectionBool = true;
+//  } else {
+//      selectionBool = false;
+//  }
+//    
+//    socket.emit('bool', selectionBool);
+
+    
       //print fittest array     
       var fittestCreature = population.returnFit();
       console.log("values sent");
       //send fittest array to server
       socket.emit('fittest', fittestCreature); 
-  //}
+ 
   
 
 }

@@ -40,10 +40,8 @@ let timer;
 let timerBool = true;
 let smoothed;
 
-let easing = 0.1;
-let target = 800;
-let start = 0;
-let timerX = 1;
+//bool for checking fitness selection
+//var selectionBool;
 
 
 //establish socket connection
@@ -61,6 +59,11 @@ socket.on('count', count => {
         clientCount = count;
         //console.log(clientCount);
 });
+
+//socket.on('bool', data => {
+//        selectionBool = data;
+//
+//});
 
 
 function fittestCreature(data){
@@ -132,7 +135,7 @@ function draw() {
       newUser.play();
   }
     
-  for (let i = 1; i < clientBubble.length; i++) {
+  for (let i = 2; i < clientBubble.length; i++) {
         clientBubble[i].move();
         clientBubble[i].display();
   }
@@ -155,16 +158,6 @@ function draw() {
   let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
   text(`${writing}`, width/13, height/4.8);
 
-//  smoothed = lerp(smoothed, timer, 0.1);
-  //console.log(timer);
-
-  let targetX = 800;
-
-  let dx = targetX - timerX;
-  timerX += dx * easing;
-
-  //timerX = map(timer, 0, 7, 0, 800) - timerX * easing;
-    
     
   //draw counter rectangles    
   noStroke();
