@@ -1,10 +1,17 @@
 html, body {
   margin: 0;
   padding: 0; 
-  Overflow-y:scroll;
-  background-color: coral;
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+    
+    
+  justify-content: space-evenly;
+  justify-items: center;
+  align-content: space-evenly;
+  align-items: center;
 
 }
 canvas {
-  display: block;
+    
 }
