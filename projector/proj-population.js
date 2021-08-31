@@ -15,9 +15,6 @@ class Population {
     //variable for received fitness array
     this.receive;
       
-    //variable for selection bool
-//    this.selectionBool;
-      
     this.receiveArray;
     this.clientCount = num;    
     this.dataArray = [];
@@ -30,7 +27,6 @@ class Population {
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
       
-  
   }
     
     
@@ -45,23 +41,12 @@ class Population {
       this.receive = data;
       
       this.dataArray.push(this.receive);
-      
-      //console.log(this.dataArray);
-      
-      this.population = clientCount-2;
-      //console.log("population: ", this.population);
-      //console.log("dataArray: ", this.dataArray.length);     
+            
+      this.population = clientCount-2;     
 
       if(this.dataArray.length >= this.population){
           
-//          // if you want to mix them all 
-//              this.dataArray = this.dataArray.filter(rec => {
-//              //console.log("inside: ", rec.genes);
-//              return !rec.genes.includes(false);
-//              //!receieve.genes.includes(false);
-//              });
-//          
-//          console.log(this.dataArray);
+      // if you want to mix them all 
           
           let i = 0;
           let start = new DNA(this.dataArray[0].genes);

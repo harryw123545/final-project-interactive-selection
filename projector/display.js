@@ -14,8 +14,6 @@ var canvas;
 let num = 65;
 var img; 
 let noiseIter = 0;
-
-
 let angle = 0;
 
 //variable for sound effects
@@ -53,7 +51,6 @@ socket.on('timer', data => {
 
 socket.on('count', count => {
         clientCount = count;
-        //console.log(clientCount);
 });
 
 
@@ -61,11 +58,8 @@ socket.on('count', count => {
 function fittestCreature(data){
     fit = data;
     testCounter++;
-    //console.log(fit, testCounter);
     population.receiveFit(fit);
-//    console.log(population.fit);
 }
-
 
 
 function preload() {
@@ -87,8 +81,7 @@ function setup() {
   //hide cursor from view
   noCursor();
     
-    
-  // Create a population with a target phrase, mutation rate, and population max
+  // Create a population with amount of clients
   population = new Population(clientCount);
   
   scan = new scanLine();
@@ -153,7 +146,6 @@ function draw() {
   //draw counter rectangles    
   noStroke();
   
-//  fill(255);
   noFill();
   stroke(255);
   strokeWeight(2);
@@ -182,6 +174,8 @@ function keyPressed() {
     let fs = fullscreen();
     if (keyCode === ENTER) {
         fullscreen(!fs);
+        
+        //load sounds by pressing enter
         newGenSound.play();
         newUser.play();
         dreaming.play();
