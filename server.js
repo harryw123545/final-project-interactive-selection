@@ -51,10 +51,10 @@ io.sockets.on('connection', (socket) => {
         io.emit('img64', data);
     });
     
-//    socket.on('bool', (data) => {
-//        console.log(data);
-//        io.emit('bool', data);
-//    });
+    socket.on('selection', (data) => {
+        console.log(data);
+        io.emit('selection', data);
+    });
 
     
 });
@@ -62,7 +62,7 @@ io.sockets.on('connection', (socket) => {
 setInterval(() => {
         countdown++;
         
-        let interTimer = countdown % 8;
+        let interTimer = countdown % 13;
         //console.log(interTimer);
     
         if(interTimer == 0){

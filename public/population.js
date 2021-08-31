@@ -16,6 +16,7 @@ class Population {
     this.matingPool = [];
     this.generations = 0; // Number of generations
     this.maxFitness;
+    this.selectionBool = false;
       
     //define value for spacing
     this.spc = width/num; 
@@ -23,9 +24,7 @@ class Population {
     //variables that change depending on screen size
     this.ph = PW;
     this.pw = PH;
-    
-    //console.log("ph: ", this.ph, "pw: ", this.pw);
-      
+          
     this.tw = width / 3;
     this.th = height / 4.5;
     this.x1;
@@ -109,6 +108,16 @@ class Population {
         
       //assign crossover genes to fit variable
       this.fit = momgenes.crossover(dadgenes);
+      
+      if(this.maxFitness > 1){
+          this.selectionBool = true;
+      } else {
+          this.selectionBool = false;
+      }
+        
+      this.fit.genes.push(this.selectionBool);
+
+      console.log("genes: ", this.fit.genes);
         
       // Mutate their genes
       child.mutate(this.mutationRate);

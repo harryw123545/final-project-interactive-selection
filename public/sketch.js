@@ -16,16 +16,11 @@ let iter = 2;
 let pw = 2;
 let ph = 3;
 var zoff = 0;
-var selectionBool = false;
 
-let bugCounter = 0;
 
 //variables from server
 let timer;
 let timerBool = true;
-
-//variable for smooted timer data
-let smoothed = 0;
 
 let nextChange = 0;
 
@@ -74,7 +69,6 @@ function draw() {
   //draw counter rectangles    
   noStroke();
   
-//  fill(255);
   noFill();
   stroke(255);
   strokeWeight(2);
@@ -82,7 +76,7 @@ function draw() {
     
   fill(255, 0, 255);
   noStroke();
-  rect(width/5, height/1.4, map(timer, 0, 7, 0, width/1.6), 20, 35, 20);
+  rect(width/5, height/1.4, map(timer, 0, 12, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
   //console.log(timer);
@@ -103,29 +97,19 @@ function draw() {
 function nextGen() {
   population.selection();
   population.reproduction();
-  console.log("pop reset", bugCounter);
-  bugCounter++;
     
-  //var fitnessCount = population.returnScore();
-//  console.log(fitnessCount);
-    
-//  if(fitnessCount > 1){
-//      //only send bool to server if shapes are selected
-//      selectionBool = true;
-//  } else {
-//      selectionBool = false;
-//  }
-//    
-//    socket.emit('bool', selectionBool);
+//  var fitnessCount = population.returnScore();
+//  //console.log(fitnessCount);
+//
+//      if(fitnessCount > 1){
 
-    
-      //print fittest array     
-      var fittestCreature = population.returnFit();
-      console.log("values sent");
-      //send fittest array to server
-      socket.emit('fittest', fittestCreature); 
- 
-  
+          //print fittest array     
+          var fittestCreature = population.returnFit();
+          console.log("values sent");
+          //send fittest array to server
+          socket.emit('fittest', fittestCreature); 
+          
+      //}
 
 }
 
