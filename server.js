@@ -1,4 +1,3 @@
-////////////
 // Setup express web server and listen on port 3000
 let express = require('express');
 let app = express();
@@ -14,7 +13,6 @@ app.use(express.static("public"));
 app.use(express.static("databank"));
 
 
-////////////
 // Start socket.io
 let socket = require('socket.io');
 
@@ -65,10 +63,6 @@ setInterval(() => {
 
     io.emit('timer', interTimer);
 }, 1000);
-//    socket.on('bool', (data) => {
-//        console.log(data);
-//        io.emit('bool', data);
-//    });
 
     
 });
