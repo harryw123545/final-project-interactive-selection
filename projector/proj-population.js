@@ -38,47 +38,19 @@ class Population {
 
   receiveFit(data) {
       this.receive = data;
-//      this.selectionBool = bool;
       
       this.dataArray.push(this.receive);
+      
+      console.log("received");
+      console.log(this.dataArray);
             
       this.population = clientCount-2;     
 
       if(this.dataArray.length >= this.population){
           
-      // if you want to mix them all 
-      
-      this.population = clientCount-2;
-      console.log("population: ", this.population);
-//      console.log("dataArray: ", this.dataArray.length);
-//      
-//      if(this.dataArray.length == 1){
-//          this.fittest = new Fittest(this.receive, width/2, height/2);
-//          this.glyph = new Glyphs(this.receive);
-//          this.dataArray = [];
-//      }
+
       if(this.dataArray.length >= this.population){
           
-//          let child = new DNA();
-//          let d = this.dataArray[floor(random(0, this.dataArray.length))];
-//          let m = this.dataArray[floor(random(0, this.dataArray.length))];
-//          
-//          console.log('Checking main');
-//          console.log(d);
-//          console.log(m);
-//          
-//          
-//          // this might work
-//          let nd = new DNA(d.genes);
-//          let nm = new DNA(m.genes);
-//          let combined = nd.crossover(nm); // this is your combined dna
-//          console.log(combined);
-//          console.log('Finished');
-          
-          //console.log(selectionBool);
-
-          console.log("received");
-          console.log(this.dataArray);
           // if you want to mix them all 
           
           let i = 0;

@@ -102,19 +102,6 @@ function nextGen() {
   console.log("pop reset", bugCounter);
   bugCounter++;
     
-  //var fitnessCount = population.returnScore();
-//  console.log(fitnessCount);
-    
-//  if(fitnessCount > 1){
-//      //only send bool to server if shapes are selected
-//      selectionBool = true;
-//  } else {
-//      selectionBool = false;
-//  }
-//    
-//    socket.emit('bool', selectionBool);
-
-    
       //print fittest array     
       var fittestCreature = population.returnFit();
       console.log("values sent");

@@ -14,6 +14,8 @@ var canvas;
 let num = 65;
 var img; 
 let noiseIter = 0;
+
+
 let angle = 0;
 
 //variable for sound effects
@@ -38,9 +40,6 @@ let timer;
 let timerBool = true;
 let smoothed;
 
-//bool for checking fitness selection
-//var selectionBool;
-
 
 //establish socket connection
 const socket = io.connect('https://codex-live.ngrok.io');
@@ -55,19 +54,18 @@ socket.on('timer', data => {
 
 socket.on('count', count => {
         clientCount = count;
+        //console.log(clientCount);
 });
-
-//socket.on('bool', data => {
-//        selectionBool = data;
-//
-//});
 
 
 function fittestCreature(data){
     fit = data;
     testCounter++;
+    //console.log(fit, testCounter);
     population.receiveFit(fit);
+//    console.log(population.fit);
 }
+
 
 
 function preload() {
@@ -92,6 +90,7 @@ function setup() {
   // Create a population with amount of clients
   smoothed = 0;
         
+    
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
   
@@ -185,8 +184,6 @@ function keyPressed() {
     let fs = fullscreen();
     if (keyCode === ENTER) {
         fullscreen(!fs);
-        
-        //load sounds by pressing enter
         newGenSound.play();
         newUser.play();
         dreaming.play();
@@ -234,7 +231,6 @@ function boundingCircle() {
 // If the timer resets, evolve next generation
 function nextGen() {
   //console.log("new population");
-  //saveCanvas('myCanvas', 'png');
   newGenSound.play();
   num = random(65, 80);
   const img64 = canvas.toDataURL();
