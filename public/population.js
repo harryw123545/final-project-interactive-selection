@@ -16,6 +16,7 @@ class Population {
     this.matingPool = [];
     this.generations = 0; // Number of generations
     this.maxFitness;
+    this.selectionBool = false;
       
     //define value for spacing
     this.spc = width/num; 
@@ -39,6 +40,7 @@ class Population {
         this.x1 = this.tw / 2 + parseInt(k / this.ph) * this.tw;
         this.y1 = this.th / 2 + (k % this.ph) * this.th;
         this.population[k] = new Face(new DNA(), this.x1, this.y1);
+
     }
         
   }
@@ -54,6 +56,11 @@ class Population {
   returnFit(){
     //function that returns fit array for sending to server
     return this.fit;
+  }
+    
+  returnScore(){
+    //returns fitness score
+    return this.maxFitness;
   }
 
   // Are we rolling over any of the faces?
@@ -104,6 +111,7 @@ class Population {
       //assign crossover genes to fit variable
       this.fit = momgenes.crossover(dadgenes);
 
+        
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
@@ -113,8 +121,10 @@ class Population {
       this.population[i] = new Face(child, this.x1, this.y1);
     }
     this.generations++;
+
   }
     
+
 
   getGenerations() {
     return this.generations;

@@ -26,6 +26,7 @@ class Population {
       
     this.fittest = new Fittest(new DNA(), width/2, height/2);
       
+  
   }
     
     
@@ -48,6 +49,12 @@ class Population {
 
       if(this.dataArray.length >= this.population){
           
+
+      if(this.dataArray.length >= this.population){
+      
+      this.population = clientCount-2;
+      //console.log("population: ", this.population);
+      //console.log("dataArray: ", this.dataArray.length);     
 
       if(this.dataArray.length >= this.population){
           

@@ -89,7 +89,7 @@ function setup() {
     
   // Create a population with amount of clients
   smoothed = 0;
-        
+
     
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
@@ -156,6 +156,7 @@ function draw() {
   //draw counter rectangles    
   noStroke();
   
+//  fill(255);
   noFill();
   stroke(255);
   strokeWeight(2);

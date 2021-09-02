@@ -16,10 +16,11 @@ class Face {
     this.dna = dna_; // Face's DNA
     this.x = x_; // Position on screen
     this.y = y_;
+      
     this.space = 8;
+
     this.wh = width/4; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
-      
     // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
@@ -49,6 +50,7 @@ class Face {
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
     let iter3 = map(genes[3], 0, 1, 0.01, 0.13);
     let size = 1;
+
 
     var n1 = map(genes[1], 0, 1, 0.1, 1.5);
     var n2 = map(genes[2], 0, 1, 0.1, 1.5);

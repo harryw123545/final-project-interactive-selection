@@ -29,6 +29,7 @@ let smoothed = 0;
 
 let nextChange = 0;
 
+
 //connect to server
 const socket = io.connect('https://codex-live.ngrok.io');
 
@@ -48,6 +49,7 @@ function setup() {
     if(width < height){
         pw = 3;
         ph = 2;
+        //console.log("pw: ", pw, "ph: ", ph);
     }
     
   let popmax = 9;
@@ -83,6 +85,9 @@ function draw() {
   rect(width/5, height/1.4, map(timer, 0, 7, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
+  //console.log(timer);
+    
+  //console.log(timerBool);
     
   //call next gen when server timer resets    
   if(timer == 0 && timerBool == true){
@@ -116,7 +121,15 @@ function nextGen() {
 
   //send fittest array to server
   socket.emit('fittest', fittestCreature); 
-          
+
+
+  //print fittest array     
+  var fittestCreature = population.returnFit();
+  console.log("values sent");
+  //send fittest array to server
+  socket.emit('fittest', fittestCreature); 
+
+
 }
 
 function windowResized() {
