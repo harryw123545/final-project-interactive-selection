@@ -36,6 +36,10 @@ let fit;
 //variable for timer data
 let timer;
 let timerBool = true;
+let smoothed;
+
+//bool for checking fitness selection
+//var selectionBool;
 
 
 //establish socket connection
@@ -53,6 +57,10 @@ socket.on('count', count => {
         clientCount = count;
 });
 
+//socket.on('bool', data => {
+//        selectionBool = data;
+//
+//});
 
 
 function fittestCreature(data){
@@ -82,6 +90,9 @@ function setup() {
   noCursor();
     
   // Create a population with amount of clients
+  smoothed = 0;
+        
+  // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
   
   scan = new scanLine();
@@ -153,7 +164,7 @@ function draw() {
     
   fill(255, 0, 255);
   noStroke();
-  rect(width/2-400, height/1.1, map(timer, 0, 12, 0, 800), 20, 20, 20);
+  rect(width/2-400, height/1.1, map(timer, 0, 7, 0, 800), 20, 20, 20);
       
   //extablish time variable for shapes    
   time = frameCount*0.015;

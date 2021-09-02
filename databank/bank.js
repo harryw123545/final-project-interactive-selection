@@ -12,9 +12,11 @@ socket.on('img64', data => {
     img.size(400, AUTO);
     img.style('padding', '15px');
     window.scrollTo(0, document.body.scrollHeight);
+//    /img.position('fixed');
   });
 }); 
 
+window.scrollTo(0,document.body.scrollHeight);
 
 function setup() {
     

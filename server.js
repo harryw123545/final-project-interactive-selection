@@ -65,3 +65,25 @@ setInterval(() => {
 
     io.emit('timer', interTimer);
 }, 1000);
+//    socket.on('bool', (data) => {
+//        console.log(data);
+//        io.emit('bool', data);
+//    });
+
+    
+});
+
+setInterval(() => {
+        countdown++;
+        
+        let interTimer = countdown % 8;
+        //console.log(interTimer);
+    
+        if(interTimer == 0){
+            //console.log('countdown reset');
+        }
+    
+    
+        io.emit('timer', interTimer);
+        //console.log(countdown)
+    }, 1000);
