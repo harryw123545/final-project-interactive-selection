@@ -12,64 +12,62 @@
  http://paulbourke.net/geometry/supershape/#2d
  */
 
-// Setup express web server and listen on port 3000
-let express = require('express');
-let app = express();
+ // Setup express web server and listen on port 3000
+ let express = require('express');
+ let app = express();
+ var port = 3000;
+ var server = app.listen(port);
+ console.log(`starting server at ${port}`);
 
-var port = 3000;
-var server = app.listen(port);
-console.log(`starting server at ${port}`);
-
-
-app.use(express.static("projector"));
-app.use(express.static("public"));
-app.use(express.static("databank"));
-
-
-// Start socket.io
-let socket = require('socket.io');
-
-// Connect it to the web server
-let io = socket(server);
-
-//countdown variable
-var countdown = 0;
-var mod 
-var generation = 0;
+ // Link to each folder of the project
+ app.use(express.static("projector"));
+ app.use(express.static("public"));
+ app.use(express.static("databank"));
 
 
-io.sockets.on('connection', (socket) => {
-    console.log('new connection: ' + socket.id);
-       
-    //log client count
-    io.emit('count', io.engine.clientsCount);
-    console.log("clients: " + io.engine.clientsCount);
-    
-    //log when a user disconnects
-    socket.on("disconnect", () => {
-        io.emit('count', io.engine.clientsCount);
-        console.log("a user has disconnected");
-    });
-    
-    
-    socket.on('fittest', (data) => {
-        io.emit('fittest', data);
-    });
-    
-    socket.on('img64', (data) => {
-        io.emit('img64', data);
-    });
+ // Start socket.io
+ let socket = require('socket.io');
 
-    
-});
+ // Connect it to the web server
+ let io = socket(server);
 
-setInterval(() => {
-        countdown++;
-        
-        let interTimer = countdown % 13;
-    
-        if(interTimer == 0){
-        }
-    
-        io.emit('timer', interTimer);
-    }, 1000);
+ // Countdown variable
+ var countdown = 0;
+
+
+ io.sockets.on('connection', (socket) => {
+     console.log('new connection: ' + socket.id);
+
+     // Log client count
+     io.emit('count', io.engine.clientsCount);
+     console.log("clients: " + io.engine.clientsCount);
+
+     // Log when a user disconnects
+     socket.on("disconnect", () => {
+         io.emit('count', io.engine.clientsCount);
+         console.log("a user has disconnected");
+     });
+
+     // Emit array of fittest creature
+     socket.on('fittest', (data) => {
+         io.emit('fittest', data);
+     });
+
+     // Emit base 64 data of canvas screenshot
+     socket.on('img64', (data) => {
+         io.emit('img64', data);
+     });
+
+
+ });
+
+// Run function every second
+ setInterval(() => {
+     countdown++;
+
+     // Reset counter after 13 seconds
+     let interTimer = countdown % 13;
+
+     // Emit timer data
+     io.emit('timer', interTimer);
+ }, 1000);
