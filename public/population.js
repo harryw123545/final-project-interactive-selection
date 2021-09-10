@@ -1,51 +1,53 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
 
-// Interactive Selection
-// http://www.genarts.com/karl/papers/siggraph91.html
-
-// A class to describe a population of faces
-// this hasn't changed very much from example to example
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
 // Create the population
 class Population {
   constructor(m, num, PW, PH) {
     this.mutationRate = m; // Mutation rate
-    this.population = []; // array to hold the current population
+    this.population = []; // Array to hold the current population
     this.matingPool = [];
     this.generations = 0; // Number of generations
     this.maxFitness;
-    this.selectionBool = false;
       
-    //define value for spacing
+    // Define value for spacing
     this.spc = width/num; 
       
-    //variables that change depending on screen size
+    // Variables that change depending on screen size
     this.ph = PW;
     this.pw = PH;
-    
-    //console.log("ph: ", this.ph, "pw: ", this.pw);
-      
+          
     this.tw = width / 3;
     this.th = height / 4.5;
     this.x1;
     this.y1;
     
-    //variable for fittest array
+    // Variable for fittest array
     this.fit;
 
 
+    // Display creatures within a grid  
      for (let k = 0; k < num; k++) {
         this.x1 = this.tw / 2 + parseInt(k / this.ph) * this.tw;
         this.y1 = this.th / 2 + (k % this.ph) * this.th;
-        this.population[k] = new Face(new DNA(), this.x1, this.y1);
+        this.population[k] = new Creature(new DNA(), this.x1, this.y1);
 
     }
         
   }
 
-  // Display all faces
+  // Display all of the creatures
   display() {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].display();
@@ -54,16 +56,16 @@ class Population {
   }
     
   returnFit(){
-    //function that returns fit array for sending to server
+    // Function that returns fit array for sending to server
     return this.fit;
   }
     
   returnScore(){
-    //returns fitness score
+    // Returns fitness score
     return this.maxFitness;
   }
 
-  // Are we rolling over any of the faces?
+  // Are we rolling over any of the creatures?
   rollover(mx, my) {
     for (let i = 0; i < this.population.length; i++) {
       this.population[i].rollover(mx, my);
@@ -111,20 +113,18 @@ class Population {
       //assign crossover genes to fit variable
       this.fit = momgenes.crossover(dadgenes);
 
-        
       // Mutate their genes
       child.mutate(this.mutationRate);
       // Fill the new population with the new child
             
       this.x1 = this.tw / 2 + parseInt(i / this.ph) * this.tw;
       this.y1 = this.th / 2 + (i % this.ph) * this.th;
-      this.population[i] = new Face(child, this.x1, this.y1);
+      this.population[i] = new Creature(child, this.x1, this.y1);
     }
     this.generations++;
 
   }
     
-
 
   getGenerations() {
     return this.generations;

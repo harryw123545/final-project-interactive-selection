@@ -1,16 +1,20 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
 
-// Interactive Selection
-// http://www.genarts.com/karl/papers/siggraph91.html
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
-// The class for our "face", contains DNA sequence, fitness value, position on screen
-
-// Fitness Function f(t) = t (where t is "time" mouse rolls over face)
 
 // Create a new face
-class Face {
+class Creature {
   constructor(dna_, x_, y_) {
     this.rolloverOn = false; // Are we rolling over this face?
     this.dna = dna_; // Face's DNA
@@ -21,14 +25,13 @@ class Face {
 
     this.wh = width/4; // Size of square enclosing face
     this.fitness = 1; // How good is this face?
-    // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
     this.osc = 0;
     this.angleShape = 0;
       
-    //values for fitness score
+    // Values for fitness score
     this.col = [255, 0, 255];
     this.recCol = [255];
   }
@@ -36,13 +39,14 @@ class Face {
     
   // Display the face
   display() {
-    // We are using the face's DNA to pick properties for this face
-    // such as: head size, color, eye position, etc.
+    // We are using the creatures DNA to pick properties for this face
+    // such as: size, color, rotation, etc.
     // Now, since every gene is a floating point between 0 and 1, we map the values
     let genes = this.dna.genes;
       
     let sinCol = 0;
       
+    // Map values from genes array to determine values of each creature  
     let r = map(genes[2], 0, 1, 80, 100);
     let c = color(genes[1], genes[2], genes[3]);
     
@@ -50,7 +54,6 @@ class Face {
     let iter2 = map(genes[2], 0, 1, 0.01, 0.12);
     let iter3 = map(genes[3], 0, 1, 0.01, 0.13);
     let size = 1;
-
 
     var n1 = map(genes[1], 0, 1, 0.1, 1.5);
     var n2 = map(genes[2], 0, 1, 0.1, 1.5);
@@ -65,7 +68,7 @@ class Face {
       
     this.angleShape += rotateSpeed;
       
-    //define noise
+    // Define noise
     let noiseIter = map(genes[7], 0, 1, 0.1, 0.2);
     osc += add;
 
@@ -97,7 +100,7 @@ class Face {
             return (1 / part3);
         }
         
-      //speed of animation    
+      // Speed of animation    
       m = map(sin(osc), -1, 1, 0, 3) + iter;
       
       push();
@@ -105,7 +108,7 @@ class Face {
       noStroke();    
       scale(radius);
 
-      //level of detail in shapes    
+      // Level of detail in shapes    
       var total = 80;
       var increment = TWO_PI / total;
 
@@ -123,7 +126,7 @@ class Face {
         }
       endShape(CLOSE);
 
-      //recursively draw shapes
+      // Recursively draw shapes
       if(radius > 0.3) {
           drawShapes(radius/1.8);
       }
@@ -132,13 +135,9 @@ class Face {
     }
 
       pop();
-//    textSize(30);  
-//    text(char([65, 66, 67, 68]), this.x, this.y+this.wh/1.2);
-//    text(this.word, this.x, this.y+this.wh/1.2); // draw the word
-      
+
       
     // Draw the bounding box
-    //noStroke();
     stroke(255, 100);
     if (this.rolloverOn) fill(255, 150);
     else noFill();
@@ -148,23 +147,23 @@ class Face {
 
     // Display fitness value
       
-    //draw rectangle underneath 
+    // Draw rectangle underneath 
     noStroke();  
     fill(this.recCol);  
     rect(this.x-this.wh/2, this.y+this.wh/1.3, this.wh, 15, 20);
     
 
-    //change colour when move rolls over
+    // Change colour when move rolls over
     if (this.rolloverOn) fill(this.col);
     else fill(155);
       
-    //fix bug that displays small rectangle before counter starts
-      if(this.fitness <= 1){
-          noStroke();
-          noFill();
-      }
+    // Fix bug that displays small rectangle before counter starts
+    if(this.fitness <= 1){
+        noStroke();
+        noFill();
+    }
       
-    //display fitness score as a rectangle
+    // Display fitness score as a rectangle
     rect(this.x-this.wh/2, this.y+this.wh/1.3, this.fitness % this.wh, 15, 20);
     
     if(this.fitness >= this.wh){

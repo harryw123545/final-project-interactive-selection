@@ -1,14 +1,21 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
 
-// Interactive Selection
-// http://www.genarts.com/karl/papers/siggraph91.html
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
 let population;
 let info;
 var osc = 0;
-let time;
+let time; // Create global variable for use in creature class
 let spc;
 let font;
 let words = [];
@@ -16,25 +23,16 @@ let iter = 2;
 let pw = 2;
 let ph = 3;
 var zoff = 0;
-var selectionBool = false;
-
-let bugCounter = 0;
-
-//variables from server
 let timer;
 let timerBool = true;
 
-//variable for smooted timer data
-let smoothed = 0;
 
-let nextChange = 0;
+// Connect to server
+const socket = io.connect('http://localhost:3000');
 
-
-//connect to server
-const socket = io.connect('https://codex-live.ngrok.io');
-
-//log changes in timer and generation from server
+// Log changes in timer and generation from server
 socket.on('timer', data => {
+        // Retrieve timer data from server
         timer = data;
 }); 
 
@@ -45,11 +43,10 @@ function preload() {
 function setup() {
     createCanvas(displayWidth, displayHeight);    
     
-    //change variables if screen is resized
+    // Change variables if screen is resized
     if(width < height){
         pw = 3;
         ph = 2;
-        //console.log("pw: ", pw, "ph: ", ph);
     }
     
   let popmax = 9;
@@ -64,32 +61,27 @@ function setup() {
 
 function draw() {
   background(10);
-  // Display the faces
+  // Display the creatures
   population.display();
   population.rollover(mouseX, mouseY);
   fill(255);
   textAlign(CENTER);
   textSize(60);
     
-  //draw counter rectangles    
-  noStroke();
-  
-//  fill(255);
+  // Draw counter rectangles      
   noFill();
   stroke(255);
   strokeWeight(2);
   rect(width/5-1, height/1.4-1, width/1.6+2, 22, 37, 20);
     
+  // Inner rectangle effected by timer from server    
   fill(255, 0, 255);
   noStroke();
-  rect(width/5, height/1.4, map(timer, 0, 7, 0, width/1.6), 20, 35, 20);
+  rect(width/5, height/1.4, map(timer, 0, 12, 0, width/1.6), 20, 35, 20);
     
   time = frameCount*0.015;
-  //console.log(timer);
     
-  //console.log(timerBool);
-    
-  //call next gen when server timer resets    
+  // Call next gen when server timer resets    
   if(timer == 0 && timerBool == true){
       nextGen();
       timerBool = false;   
@@ -104,31 +96,11 @@ function nextGen() {
   population.selection();
   population.reproduction();
 
-  console.log("pop reset", bugCounter);
-  bugCounter++;
+  // Return fittest array     
+  var fittestCreature = population.returnFit();
     
-      //print fittest array     
-      var fittestCreature = population.returnFit();
-      console.log("values sent");
-      //send fittest array to server
-      socket.emit('fittest', fittestCreature); 
- 
-  
-
-  //print fittest array     
-  var fittestCreature = population.returnFit();
-  console.log("values sent");
-
-  //send fittest array to server
+  // Send fittest array to server
   socket.emit('fittest', fittestCreature); 
-
-
-  //print fittest array     
-  var fittestCreature = population.returnFit();
-  console.log("values sent");
-  //send fittest array to server
-  socket.emit('fittest', fittestCreature); 
-
 
 }
 

@@ -1,9 +1,16 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
 
-// Interactive Selection
-// http://www.genarts.com/karl/papers/siggraph91.html
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
 
 var osc;
@@ -14,58 +21,38 @@ var canvas;
 let num = 65;
 var img; 
 let noiseIter = 0;
-
-
 let angle = 0;
-
-//variable for sound effects
-var newGenSound, newUser, dreaming;
-
+var newGenSound, newUser, dreaming; // Variables for sound effects
 var clientCount = 0;
-var clientBubble = [];
-
-//variable for second canvas
-let extraCanvas;
-
-//variable for generation counter
-let counter = 0;
-
-let testCounter = 0;
-
-//variable for data taken from server
-let fit;
-
-//variable for timer data
-let timer;
-let timerBool = true;
-let smoothed;
+var clientBubble = []; // Array for client bubbles
+let extraCanvas; // Variable for second canvas
+let counter = 0; // Variable for generation counter
+let fit; // Variable for data taken from server
+let timer; // Variable for timer data
+let timerBool = true; // Bool to avoid repeating shapes
 
 
-//establish socket connection
-const socket = io.connect('https://codex-live.ngrok.io');
+// Establish socket connection
+const socket = io.connect('http://localhost:3000');
 
-//get dna array from server
+// Get dna array from server
 socket.on('fittest', fittestCreature);
 
-//log changes in timer and generation from server
+// Log changes in timer and generation from server
 socket.on('timer', data => {
     timer = data;
 }); 
 
 socket.on('count', count => {
         clientCount = count;
-        //console.log(clientCount);
 });
 
 
 function fittestCreature(data){
+    // Retrieve array of fittest creature from server & send to population class
     fit = data;
-    testCounter++;
-    //console.log(fit, testCounter);
     population.receiveFit(fit);
-//    console.log(population.fit);
 }
-
 
 
 function preload() {
@@ -79,21 +66,16 @@ function preload() {
 
 function setup() {
   createCanvas(displayWidth, displayHeight);
-  //canvas.parent('canvas-container');
-
   extraCanvas = createGraphics(80, width/4);
   extraCanvas.background(0);
 
-  //hide cursor from view
+  // Hide cursor from view
   noCursor();
-    
-  // Create a population with amount of clients
-  smoothed = 0;
-
     
   // Create a population with a target phrase, mutation rate, and population max
   population = new Population(clientCount);
   
+  // Initiate scan line object
   scan = new scanLine();
 
   textFont(font);    
@@ -108,69 +90,65 @@ function draw() {
     
   background(0);
 
-  //draw background image    
+  // Draw background image    
   imageMode(CORNER);
   image(img, 20, 20, width-50, height-90);
     
   // Display the faces
   population.displayFittest();
    
-  //display scan animation    
+  // Display scan animation    
   scan.display();
         
   boundingCircle();
   
-  //statements for showing client bubbles on screen    
+  // Statements for showing client bubbles on screen    
   if(clientCount < clientBubble.length){
-        clientBubble.splice(0, 1);
+        clientBubble.splice(0, 1); // Remove oldest element from array 
   } 
   else if(clientCount > clientBubble.length){
-      clientBubble.push(new clientShape());
+      clientBubble.push(new clientShape()); // Add new bubble object if there is a new client
       newUser.play();
   }
     
-  for (let i = 2; i < clientBubble.length; i++) {
+  for (let i = 2; i < clientBubble.length; i++) { // Start from 2 to avoid bug where the webistes recognise themselves as clients
         clientBubble[i].move();
         clientBubble[i].display();
   }
     
   
-  //draw creature name    
+  // Draw creature name    
   fill(255);
   noStroke();
-  textSize(95);
+  textSize(78);
   textAlign(LEFT);
     
-  let word = char(num); // select random word
+  let word = char(num); // Select random word
   text(`generation: ${word}`, width/13, height/6.5);
     
-  //draw writing underneath    
+  // Draw writing underneath    
   fill(255);
   noStroke();
-  textSize(38);
+  textSize(30);
     
-  let writing = ['hello, wagsydsa, xbsajxgyag']; // select random word
+  let writing = ['hello, wagsydsa, xbsajxgyag']; // Select random word
   text(`${writing}`, width/13, height/4.8);
 
-    
-  //draw counter rectangles    
-  noStroke();
-  
-//  fill(255);
+  // Draw counter rectangles      
   noFill();
   stroke(255);
   strokeWeight(2);
-  rect(width/2-400-1, height/1.1-1, 802, 22, 22, 20);
-    
+  rect(width/2-400-1, height/1.11-1, 802, 22, 22, 20);
+   
+  // Draw inner rectangle, its width effected by server timer    
   fill(255, 0, 255);
   noStroke();
-  rect(width/2-400, height/1.1, map(timer, 0, 7, 0, 800), 20, 20, 20);
+  rect(width/2-400, height/1.11, map(timer, 0, 12, 0, 800), 20, 20, 20);
       
-  //extablish time variable for shapes    
+  // Establish time variable for shapes    
   time = frameCount*0.015;
-    
   
-  //call next gen when server timer resets    
+  // Call next gen when server timer resets    
   if(timer == 0 && timerBool == true){
       nextGen();
       timerBool = false;   
@@ -184,8 +162,8 @@ function draw() {
 function keyPressed() {
     let fs = fullscreen();
     if (keyCode === ENTER) {
-        fullscreen(!fs);
-        newGenSound.play();
+        fullscreen(!fs); // Make sketch fullscreen when enter key is pressed
+        newGenSound.play(); // Play sound files
         newUser.play();
         dreaming.play();
         dreaming.loop();
@@ -193,13 +171,13 @@ function keyPressed() {
   }
 
 function boundingCircle() {
-    //draw bounding circle    
+  // Draw bounding circle    
   noFill();
   stroke(255);
   strokeWeight(1);
   ellipse(width/5, height/2, 300, 300);
     
-  //draw dotted circle outline
+  // Draw dotted circle outline
   push();
       translate(width/5, height/2);
       stroke(255);
@@ -213,30 +191,26 @@ function boundingCircle() {
       }
   pop();
      
-  //draw moving circle outline
-  push();
-      //translate(width/5, height/2);
-      noStroke();
-      let circleCol = frameCount*0.01;
-      for(let a = 0; a < TWO_PI; a+=0.01){
-          fill(127 + 127 * sin(a * 0.4 + circleCol), 127 + 127 * sin(a * 0.1 + circleCol), 127 + 127 * sin(a * 0.01 + circleCol))
-          let r = 170;
-          let x = r * cos(a * 0.5 + time);
-          let y = r * sin(a * 0.5 + time);
-          ellipse(width/5 + x, height/2 + y, 3, 3);
-      }
-  pop();
-
+  // Draw moving circle outline
+  noStroke();
+  let circleCol = frameCount*0.01;
+  for(let a = 0; a < TWO_PI; a+=0.01){
+      fill(127 + 127 * sin(a * 0.4 + circleCol), 127 + 127 * sin(a * 0.1 + circleCol), 127 + 127 * sin(a * 0.01 + circleCol))
+      let r = 170;
+      let x = r * cos(a * 0.5 + time);
+      let y = r * sin(a * 0.5 + time);
+      ellipse(width/5 + x, height/2 + y, 3, 3);
+  }
 }
 
 // If the timer resets, evolve next generation
 function nextGen() {
-  //console.log("new population");
-  newGenSound.play();
+  newGenSound.play(); // Play sound effect every time the generation resets
   num = random(65, 80);
+    
+  // Take screen grab of canvas, convert to base64 data and send to server
   const img64 = canvas.toDataURL();
   socket.emit('img64', img64); 
-  //console.log(img64);
 }
 
 function windowResized() {

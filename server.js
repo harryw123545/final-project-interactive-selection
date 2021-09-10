@@ -1,9 +1,22 @@
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
+
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
+
 // Setup express web server and listen on port 3000
 let express = require('express');
 let app = express();
 
 var port = 3000;
-//var port = process.env.PORT || 3000;
 var server = app.listen(port);
 console.log(`starting server at ${port}`);
 
@@ -40,18 +53,11 @@ io.sockets.on('connection', (socket) => {
     
     
     socket.on('fittest', (data) => {
-        console.log(data);
         io.emit('fittest', data);
     });
     
     socket.on('img64', (data) => {
-        //console.log(data);
         io.emit('img64', data);
-    });
-    
-    socket.on('selection', (data) => {
-        console.log(data);
-        io.emit('selection', data);
     });
 
     
@@ -61,13 +67,9 @@ setInterval(() => {
         countdown++;
         
         let interTimer = countdown % 13;
-        //console.log(interTimer);
     
         if(interTimer == 0){
-            //console.log('countdown reset');
         }
     
-    
         io.emit('timer', interTimer);
-        //console.log(countdown)
     }, 1000);

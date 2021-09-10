@@ -1,9 +1,16 @@
-// The Nature of Code
-// Daniel Shiffman
-// http://natureofcode.com
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
 
-// Interactive Selection
-// http://www.genarts.com/karl/papers/siggraph91.html
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
 //Constructor (makes a random DNA)
 class DNA {

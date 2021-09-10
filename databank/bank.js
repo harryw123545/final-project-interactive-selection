@@ -1,6 +1,6 @@
 
 //establish socket connection
-const socket = io.connect('https://codex-live.ngrok.io');
+const socket = io.connect('http://localhost:3000');
 
 var img;
 var raw;

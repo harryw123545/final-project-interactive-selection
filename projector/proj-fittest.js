@@ -1,4 +1,16 @@
-//class for the fittest creature, for display on projector
+ /*
+ Codex
+ Final Project
+ Harry Wakeling
+ 10/09/21
+ */
+
+ /*
+ Inspiration:
+ https://github.com/nature-of-code/noc-examples-p5.js/tree/master/chp09_ga/NOC_9_04_Faces_interactiveselection
+ http://www.genarts.com/karl/papers/siggraph91.html
+ http://paulbourke.net/geometry/supershape/#2d
+ */
 
 // Create a new face
 class Fittest {
@@ -8,8 +20,7 @@ class Fittest {
     this.x = x_; // Position on screen
     this.y = y_;
     this.wh = width/4; // Size of square enclosing face
-    this.fitness = 1; // How good is this face?
-    // Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
+//    this.fitness = 1; // How good is this face?
     this.r = new Rectangle(this.x - this.wh / 2, this.y - this.wh / 2, this.wh, this.wh);
     this.num = [random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90), random(65, 90)];
     this.word = join(char(this.num), ''); // select random word
@@ -23,8 +34,8 @@ class Fittest {
   // Display the face
   display() {
 
-    // We are using the face's DNA to pick properties for this face
-    // such as: head size, color, eye position, etc.
+    // We are using the creatures DNA to pick properties for this face
+    // such as: size, color, rotation, etc.
     // Now, since every gene is a floating point between 0 and 1, we map the values
 
     let genes = this.dna.genes;
@@ -49,13 +60,11 @@ class Fittest {
     var speed = map(genes[9], 0, 1, 0.01, 0.03);
     var rotateSpeed = map(genes[10], 0, 1, 0.001, 0.006);
       
-      
     this.angleShape += rotateSpeed;
       
-
     osc += 0.01;
 
-    // Once we calculate all the above properties, we use those variables to draw rects, ellipses, etc.
+    // Once we calculate all the above properties, we use those variables to draw the superformula.
     push();
     translate(this.x, this.y);
       
@@ -81,13 +90,13 @@ class Fittest {
             return (1 / part3);
         }
         
-      //speed of animation    
+      // Speed of animation    
       m = map(sin(osc), -1, 1, 0, 1) + iter;
 
       push();
       scale(radius);
         
-      //level of detail in shapes    
+      // Level of detail in shapes    
       var total = 80;
       var increment = TWO_PI / total;
       var radi = 0;
@@ -96,11 +105,10 @@ class Fittest {
         
         for(var angle = 0; angle < TWO_PI; angle += increment){
             
-    
             noStroke();
             c = color(127 + 127 * sin(total*2 * iter1  + time), 127 + 127 * sin(total*2 * iter2 * radius + time), 127 + 127 * sin(total*2 * iter3*radius + time));
-            
             fill(c);
+            
             var rad = superShape(angle);
             
             let offset = map(noise(angle * 0.3 + frameCount * speed), -1, 1, 0, 1);
@@ -113,7 +121,7 @@ class Fittest {
                
       endShape(CLOSE);
 
-      //recursively draw shapes
+      // Recursively draw shapes
       if(radius > 0.2) {
           drawShapes(radius/1.02);
       }
@@ -131,42 +139,31 @@ class Fittest {
       
     pop();
 
-    //apply noise to y value of line
+    // Apply noise to y value of line
     noiseIter += 0.01;
     let n = noise(noiseIter) * this.wh+this.y/2;
       
-    //draw scan line
-    //push();
-    
+    // Draw scan line    
     strokeWeight(1);  
     stroke(c);
     line(this.x + this.wh / 2, n, this.x - this.wh/2, n); 
     
-    //draw rectangle for displaying colour value
+    // Draw rectangle for displaying colour value
     extraCanvas.fill(c);
     extraCanvas.noStroke();
-    extraCanvas.rect(0, n-310, 10, 20);
+    extraCanvas.rect(0, n-260, 10, 20);
     
-    //pop();
+    // Draw in a second canvas in order to leave a trail
     image(extraCanvas, this.x + this.wh/2+2, this.y - this.wh/2);
-
       
-    //draw alien description
+    // Draw alien description
     fill(255);
-    textSize(50);  
+    textSize(40);  
     textAlign(CENTER);
     noStroke();
-    text(this.word, width / 2, height/1.25); // draw the word
-    
+    text(this.word, width / 2, height/1.25); // Draw the word
   }
 
-  getFitness() {
-    return this.fitness;
-  }
-
-  getDNA() {
-    return this.dna;
-  }
 
 }
 
